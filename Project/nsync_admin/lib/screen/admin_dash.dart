@@ -26,7 +26,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           Padding(
                               padding: const EdgeInsets.symmetric(vertical: 30),
                               child: Image.asset(
-                                'assets/logo.png',
+                                '../Assets/logo.png',
                                 width: 120,
                                 height: 120,
                               )),
