@@ -5,25 +5,27 @@ class Appbar1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-            height: 50,
-            color: Colors.blueAccent.shade700,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(Icons.person),
-                SizedBox(
-                  width: 10,
-                ),
-                Text("Admin"),
-                SizedBox(
-                  width: 40,
-                )
-              ],
-            )),
-      ],
-    );
+    return Container(
+        height: 50,
+        color: Colors.blueAccent.shade700,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Admin",
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(
+              width: 40,
+            )
+          ],
+        ));
   }
 }

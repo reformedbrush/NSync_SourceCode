@@ -8,6 +8,8 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> {
+  List<String> pages = ["Profile", "Manage Events", "Manage Faculty"];
+
   @override
   Widget build(BuildContext context) {
     return Container(

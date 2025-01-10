@@ -18,7 +18,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
         Expanded(flex: 1, child: SideBar()),
         Expanded(
           flex: 5,
-          child: Appbar1(),
+          child: Column(
+            children: [
+              Appbar1(),
+            ],
+          ),
         )
       ],
     ));
