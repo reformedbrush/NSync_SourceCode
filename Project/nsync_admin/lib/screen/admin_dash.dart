@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/sidebar.dart';
+import 'package:nsync_admin/components/appbar.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key});
@@ -12,13 +13,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideBar(),
-      appBar: AppBar(
-        title: Text("Dashboard"),
-      ),
-      body: Center(
-        child: Text("Main Content Area"),
-      ),
-    );
+        body: Row(
+      children: [
+        Expanded(flex: 1, child: SideBar()),
+        Expanded(
+          flex: 5,
+          child: Appbar1(),
+        )
+      ],
+    ));
   }
 }
