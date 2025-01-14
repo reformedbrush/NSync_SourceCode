@@ -7,20 +7,20 @@ class Appbar1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 50,
-        color: Colors.blueAccent.shade700,
+        decoration: BoxDecoration(color: const Color(0xFFEEEEEEE)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Icon(
               Icons.person,
-              color: Colors.white,
+              color: Colors.amber,
             ),
             SizedBox(
               width: 10,
             ),
             Text(
               "Admin",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
             SizedBox(
               width: 40,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nsync_admin/screen/admin_dash.dart';
+import 'package:nsync_admin/screen/admin_home.dart';
 
 class Login1 extends StatefulWidget {
   const Login1({super.key});
@@ -74,7 +74,7 @@ class _Login1State extends State<Login1> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AdminDashboard(),
+                        builder: (context) => AdminHome(),
                       ));
                 },
                 child: Text("Login"))
