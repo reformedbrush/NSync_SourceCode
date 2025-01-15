@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/sidebar.dart';
 import 'package:nsync_admin/components/appbar.dart';
 import 'package:nsync_admin/screen/complaints.dart';
+import 'package:nsync_admin/screen/landing_page.dart';
 import 'package:nsync_admin/screen/manage_club.dart';
 import 'package:nsync_admin/screen/manage_department.dart';
 import 'package:nsync_admin/screen/manage_events.dart';
@@ -19,7 +20,7 @@ class _AdminHomeState extends State<AdminHome> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const Center(child: Text('Dashboard Content')),
+    LandingScreen(),
     EventsScreen(),
     FacultyScreen(),
     DepartmentScreen(),
@@ -51,7 +52,7 @@ class _AdminHomeState extends State<AdminHome> {
               child: Column(
                 children: [
                   Appbar1(),
-                  _pages[_selectedIndex],
+                  SingleChildScrollView(child: _pages[_selectedIndex]),
                 ],
               ),
             )

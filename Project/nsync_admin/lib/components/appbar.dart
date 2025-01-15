@@ -7,7 +7,7 @@ class Appbar1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 50,
-        decoration: BoxDecoration(color: const Color(0xFFEEEEEEE)),
+        decoration: BoxDecoration(color: const Color(0xffeeeeeee)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

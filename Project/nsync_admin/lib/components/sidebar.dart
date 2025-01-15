@@ -10,7 +10,7 @@ class SideBar extends StatefulWidget {
 
 class _SideBarState extends State<SideBar> {
   final List<String> pages = [
-    "Profile",
+    "Dashboard",
     "Manage Events",
     "Manage Faculty",
     "Manage Departments",
@@ -19,8 +19,9 @@ class _SideBarState extends State<SideBar> {
     "Review Complaints",
     "Settings"
   ];
+
   final List<IconData> icons = [
-    Icons.person, // Icon for "Profile"
+    Icons.house, // Icon for "Profile"
     Icons.event, // Icon for "Manage Events"
     Icons.school, // Icon for "Manage Faculty"
     Icons.school, // Icon for "Manage Departments"
@@ -44,6 +45,7 @@ class _SideBarState extends State<SideBar> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: 50),
               ListView.builder(
                   shrinkWrap: true,
                   itemCount: pages.length,
