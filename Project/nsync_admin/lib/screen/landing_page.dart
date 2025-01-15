@@ -6,30 +6,35 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.amber,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [const Color(0xFF1F4037), Color(0xFF99F2C8)],
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft)),
-                width: 695,
-                height: 90,
-                child: Text("data"),
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                gradient: LinearGradient(
+                    colors: [const Color(0xFF1F4037), Color(0xFF99F2C8)],
+                    begin: Alignment.centerRight,
+                    end: Alignment.centerLeft)),
+            width: 895,
+            height: 90,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 27, left: 20),
+              child: Text(
+                "Welcome Admin",
+                style: TextStyle(
+                    color: Color(0xFF1F4037),
+                    fontSize: 25,
+                    fontWeight: FontWeight.w900),
               ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                color: Colors.blue,
-                child: Text("data"),
-              ),
-            ],
+            ),
           ),
-        ));
+          SizedBox(
+            width: 10,
+          ),
+        ],
+      ),
+    ));
   }
 }
