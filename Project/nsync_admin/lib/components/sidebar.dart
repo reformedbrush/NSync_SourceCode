@@ -13,12 +13,20 @@ class _SideBarState extends State<SideBar> {
     "Profile",
     "Manage Events",
     "Manage Faculty",
+    "Manage Departments",
+    "Manage Clubs",
+    "Publish NewsLetters",
+    "Review Complaints",
     "Settings"
   ];
   final List<IconData> icons = [
     Icons.person, // Icon for "Profile"
     Icons.event, // Icon for "Manage Events"
     Icons.school, // Icon for "Manage Faculty"
+    Icons.school, // Icon for "Manage Departments"
+    Icons.school, // Icon for "Manage Clubs"
+    Icons.newspaper, // Icon for "Newsletter"
+    Icons.reviews,
     Icons.settings, // Icon for "Manage Faculty"
   ];
 

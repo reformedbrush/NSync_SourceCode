@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/sidebar.dart';
 import 'package:nsync_admin/components/appbar.dart';
+import 'package:nsync_admin/screen/complaints.dart';
+import 'package:nsync_admin/screen/manage_club.dart';
+import 'package:nsync_admin/screen/manage_department.dart';
 import 'package:nsync_admin/screen/manage_events.dart';
+import 'package:nsync_admin/screen/manage_faculty.dart';
+import 'package:nsync_admin/screen/newsletter.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({super.key});
@@ -16,7 +21,11 @@ class _AdminHomeState extends State<AdminHome> {
   final List<Widget> _pages = [
     const Center(child: Text('Dashboard Content')),
     EventsScreen(),
-    const Center(child: Text('Reports Content')),
+    FacultyScreen(),
+    DepartmentScreen(),
+    ClubsScreen(),
+    NewsLetterScreen(),
+    ComplaintsScreen(),
     const Center(child: Text('Settings Content')),
   ];
 
