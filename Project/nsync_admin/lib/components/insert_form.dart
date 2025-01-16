@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
-class TextFieldStyle extends StatefulWidget {
-  const TextFieldStyle({super.key});
+class TextFieldStyle extends StatelessWidget {
+  final TextEditingController inputController;
+  final String label;
 
-  @override
-  State<TextFieldStyle> createState() => _TextFieldStyleState();
-}
+  const TextFieldStyle(
+      {super.key, required this.label, required this.inputController});
 
-class _TextFieldStyleState extends State<TextFieldStyle> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: inputController,
       decoration: InputDecoration(
-          hintText: "Enter Data",
+          hintText: label,
           enabledBorder:
               OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF1F4037)))),
-    );SizedBox(height: 100,)
+    );
   }
 }

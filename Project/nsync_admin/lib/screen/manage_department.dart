@@ -12,6 +12,7 @@ class _DepartmentScreenState extends State<DepartmentScreen>
     with SingleTickerProviderStateMixin {
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
+  final TextEditingController _deptController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,7 +47,11 @@ class _DepartmentScreenState extends State<DepartmentScreen>
                     children: [
                       Row(
                         children: [
-                          Expanded(child: TextFieldStyle()),
+                          Expanded(
+                              child: TextFieldStyle(
+                            inputController: _deptController,
+                            label: "Department",
+                          )),
                           ElevatedButton(
                               onPressed: () {}, child: Text("Insert"))
                         ],

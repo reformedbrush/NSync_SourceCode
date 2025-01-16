@@ -12,6 +12,8 @@ class _ClubsScreenState extends State<ClubsScreen>
     with SingleTickerProviderStateMixin {
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
+  final TextEditingController _clubController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,7 +46,11 @@ class _ClubsScreenState extends State<ClubsScreen>
                 ? Form(
                     child: Row(
                     children: [
-                      Expanded(child: TextFieldStyle()),
+                      Expanded(
+                          child: TextFieldStyle(
+                        inputController: _clubController,
+                        label: "Club",
+                      )),
                       ElevatedButton(onPressed: () {}, child: Text("Insert"))
                     ],
                   ))

@@ -62,10 +62,13 @@ class LandingScreen extends StatelessWidget {
             ),
           ),
           Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Color(0xffeeeeeee),
+            ),
             height: 500,
             width: 500,
             child: Text("data"),
-            color: Colors.black,
           )
         ],
       ),

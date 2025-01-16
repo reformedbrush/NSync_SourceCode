@@ -12,6 +12,7 @@ class _EventsScreenState extends State<EventsScreen>
     with SingleTickerProviderStateMixin {
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
+  final TextEditingController _eventController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,13 +45,17 @@ class _EventsScreenState extends State<EventsScreen>
                 ? Form(
                     child: Row(
                     children: [
-                      Expanded(child: TextFieldStyle()),
+                      Expanded(
+                          child: TextFieldStyle(
+                        inputController: _eventController,
+                        label: "Events",
+                      )),
                       ElevatedButton(onPressed: () {}, child: Text("Insert"))
                     ],
                   ))
                 : Container(),
           ),
-          Container(
+          SizedBox(
             height: 500,
             child: Center(
               child: Text("Events Data"),

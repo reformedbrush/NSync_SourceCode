@@ -12,6 +12,7 @@ class _StudentScreenState extends State<StudentScreen>
     with SingleTickerProviderStateMixin {
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
+  final TextEditingController _studentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,7 +45,11 @@ class _StudentScreenState extends State<StudentScreen>
                 ? Form(
                     child: Row(
                     children: [
-                      Expanded(child: TextFieldStyle()),
+                      Expanded(
+                          child: TextFieldStyle(
+                        inputController: _studentController,
+                        label: "Student",
+                      )),
                       ElevatedButton(onPressed: () {}, child: Text("Insert"))
                     ],
                   ))
