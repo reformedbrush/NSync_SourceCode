@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_admin/components/insert_form.dart';
 
 class StudentScreen extends StatefulWidget {
   const StudentScreen({super.key});
@@ -21,14 +22,18 @@ class _StudentScreenState extends State<StudentScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Manage Students"),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _isFormVisible = !_isFormVisible; // Toggle form visibility
-                  });
-                },
-                label: Text("Add Student"),
-                icon: Icon(Icons.add),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      _isFormVisible =
+                          !_isFormVisible; // Toggle form visibility
+                    });
+                  },
+                  label: Text("Add Student"),
+                  icon: Icon(Icons.add),
+                ),
               )
             ],
           ),
@@ -37,8 +42,11 @@ class _StudentScreenState extends State<StudentScreen>
             curve: Curves.easeInOut,
             child: _isFormVisible
                 ? Form(
-                    child: Column(
-                    children: [Text("Students Form")],
+                    child: Row(
+                    children: [
+                      Expanded(child: TextFieldStyle()),
+                      ElevatedButton(onPressed: () {}, child: Text("Insert"))
+                    ],
                   ))
                 : Container(),
           ),

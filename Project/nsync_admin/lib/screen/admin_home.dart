@@ -51,10 +51,10 @@ class _AdminHomeState extends State<AdminHome> {
                 )),
             Expanded(
               flex: 5,
-              child: Column(
+              child: ListView(
                 children: [
                   Appbar1(),
-                  SingleChildScrollView(child: _pages[_selectedIndex]),
+                  _pages[_selectedIndex],
                 ],
               ),
             )

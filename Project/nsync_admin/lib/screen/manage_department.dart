@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_admin/components/insert_form.dart';
 
 class DepartmentScreen extends StatefulWidget {
   const DepartmentScreen({super.key});
@@ -21,14 +22,18 @@ class _DepartmentScreenState extends State<DepartmentScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Manage Department"),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _isFormVisible = !_isFormVisible; // Toggle form visibility
-                  });
-                },
-                label: Text("Add Department"),
-                icon: Icon(Icons.add),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      _isFormVisible =
+                          !_isFormVisible; // Toggle form visibility
+                    });
+                  },
+                  label: Text("Add Department"),
+                  icon: Icon(Icons.add),
+                ),
               )
             ],
           ),
@@ -38,7 +43,15 @@ class _DepartmentScreenState extends State<DepartmentScreen>
             child: _isFormVisible
                 ? Form(
                     child: Column(
-                    children: [Text("Department Form")],
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(child: TextFieldStyle()),
+                          ElevatedButton(
+                              onPressed: () {}, child: Text("Insert"))
+                        ],
+                      )
+                    ],
                   ))
                 : Container(),
           ),

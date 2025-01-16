@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_admin/components/insert_form.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({super.key});
@@ -21,14 +22,18 @@ class _EventsScreenState extends State<EventsScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Manage Events"),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _isFormVisible = !_isFormVisible; // Toggle form visibility
-                  });
-                },
-                label: Text("Add Events"),
-                icon: Icon(Icons.add),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      _isFormVisible =
+                          !_isFormVisible; // Toggle form visibility
+                    });
+                  },
+                  label: Text("Add Events"),
+                  icon: Icon(Icons.add),
+                ),
               )
             ],
           ),
@@ -37,8 +42,11 @@ class _EventsScreenState extends State<EventsScreen>
             curve: Curves.easeInOut,
             child: _isFormVisible
                 ? Form(
-                    child: Column(
-                    children: [Text("Events Form")],
+                    child: Row(
+                    children: [
+                      Expanded(child: TextFieldStyle()),
+                      ElevatedButton(onPressed: () {}, child: Text("Insert"))
+                    ],
                   ))
                 : Container(),
           ),
