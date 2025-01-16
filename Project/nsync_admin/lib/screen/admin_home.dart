@@ -7,6 +7,7 @@ import 'package:nsync_admin/screen/manage_club.dart';
 import 'package:nsync_admin/screen/manage_department.dart';
 import 'package:nsync_admin/screen/manage_events.dart';
 import 'package:nsync_admin/screen/manage_faculty.dart';
+import 'package:nsync_admin/screen/manage_students.dart';
 import 'package:nsync_admin/screen/newsletter.dart';
 
 class AdminHome extends StatefulWidget {
@@ -25,6 +26,7 @@ class _AdminHomeState extends State<AdminHome> {
     FacultyScreen(),
     DepartmentScreen(),
     ClubsScreen(),
+    StudentScreen(),
     NewsLetterScreen(),
     ComplaintsScreen(),
     const Center(child: Text('Settings Content')),
