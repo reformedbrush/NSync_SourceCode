@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/insert_form.dart';
+import 'package:nsync_admin/main.dart';
 
 class ClubsScreen extends StatefulWidget {
   const ClubsScreen({super.key});
@@ -13,6 +14,26 @@ class _ClubsScreenState extends State<ClubsScreen>
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
   final TextEditingController _clubController = TextEditingController();
+  Future<void> insertClub() async {
+    try {
+      String club = _clubController.text;
+      await supabase.from("tbl_club").insert({
+        "club_name": club,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //Data added message
+        content: Text(
+          "Data Added",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.green,
+      ));
+    } catch (e) {
+      print("ERROR ADDDING DATA: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +72,11 @@ class _ClubsScreenState extends State<ClubsScreen>
                         inputController: _clubController,
                         label: "Club",
                       )),
-                      ElevatedButton(onPressed: () {}, child: Text("Insert"))
+                      ElevatedButton(
+                          onPressed: () {
+                            insertClub();
+                          },
+                          child: Text("Insert"))
                     ],
                   ))
                 : Container(),

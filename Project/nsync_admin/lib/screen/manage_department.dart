@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/insert_form.dart';
+import 'package:nsync_admin/main.dart';
 
 class DepartmentScreen extends StatefulWidget {
   const DepartmentScreen({super.key});
@@ -13,6 +14,26 @@ class _DepartmentScreenState extends State<DepartmentScreen>
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
   final TextEditingController _deptController = TextEditingController();
+
+  Future<void> insertDept() async {
+    try {
+      String Department = _deptController.text;
+      await supabase
+          .from('tbl_department')
+          .insert({'department_name': Department});
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          "Department Name Inserted",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+      ));
+    } catch (e) {
+      print("ERROR ADDING DATA");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,7 +74,10 @@ class _DepartmentScreenState extends State<DepartmentScreen>
                             label: "Department",
                           )),
                           ElevatedButton(
-                              onPressed: () {}, child: Text("Insert"))
+                              onPressed: () {
+                                insertDept();
+                              },
+                              child: Text("Insert"))
                         ],
                       )
                     ],
