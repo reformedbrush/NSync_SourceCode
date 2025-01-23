@@ -34,6 +34,8 @@ class _Login1State extends State<Login1> {
               padding: EdgeInsets.symmetric(horizontal: 35.0),
               child: TextField(
                 decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
                     hintText: "Enter You ID",
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey)),
@@ -48,6 +50,8 @@ class _Login1State extends State<Login1> {
               padding: EdgeInsets.symmetric(horizontal: 35.0),
               child: TextField(
                 decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
                   hintText: "Password",
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey)),
