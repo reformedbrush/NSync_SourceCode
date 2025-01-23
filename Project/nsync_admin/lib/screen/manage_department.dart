@@ -28,7 +28,7 @@ class _DepartmentScreenState extends State<DepartmentScreen>
 
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
-          "Department Name Inserted",
+          "Department Name Inserted Sucessfully",
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.green,
