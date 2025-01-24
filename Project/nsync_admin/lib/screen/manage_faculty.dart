@@ -139,11 +139,11 @@ class _FacultyScreenState extends State<FacultyScreen>
                           inputController: _facultyController,
                           label: "Faculty",
                         )),
-                        Expanded(
+                        /* Expanded(
                             child: DropdownButtonFormField<String>(
                                 value: selectedDept,
                                 items: items,
-                                onChanged: onChanged))
+                                onChanged: onChanged)) */
                       ],
                     ),
                   ))

@@ -15,8 +15,8 @@ class _DepartmentScreenState extends State<DepartmentScreen>
   final Duration _animationDuration = const Duration(milliseconds: 300);
   final TextEditingController _deptController = TextEditingController();
 
-  List<Map<String, dynamic>> DeptList =
-      []; // list to store tbl data for displaying
+// list to store tbl data for displaying
+  List<Map<String, dynamic>> DeptList = [];
 
   Future<void> insertDept() async {
     //insert function
@@ -49,6 +49,28 @@ class _DepartmentScreenState extends State<DepartmentScreen>
       });
     } catch (e) {
       print("ERROR RETRIEVING DATA");
+    }
+  }
+
+  Future<void> deldepartment(String did) async {
+    try {
+      await supabase.from("tbl_department").delete().eq("department_id", did);
+      fetchDepartment();
+    } catch (e) {
+      print("ERROR: $e");
+    }
+  }
+
+  int eid = 0;
+
+  Future<void> editdept() async {
+    try {
+      await supabase.from("tbl_department").update(
+          {'department_name': _deptController.text}).eq('department_id', eid);
+      fetchDepartment();
+      _deptController.clear();
+    } catch (e) {
+      print("Error:$e");
     }
   }
 
@@ -115,46 +137,56 @@ class _DepartmentScreenState extends State<DepartmentScreen>
                         ]),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Expanded(
-                                child: TextFieldStyle(
-                              inputController: _deptController,
-                              label: "Department",
-                            )),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFF017AFF),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 70, vertical: 20),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5))),
-                                onPressed: () {
-                                  insertDept();
-                                },
-                                child: Text(
-                                  "Insert",
-                                  style: TextStyle(color: Colors.white),
-                                ))
-                          ],
-                        )
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFieldStyle(
+                            inputController: _deptController,
+                            label: "Department",
+                          ),
+                        )),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF017AFF),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 70, vertical: 20),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5))),
+                            onPressed: () {
+                              if (eid == 0) {
+                                insertDept();
+                              } else {
+                                editdept();
+                              }
+                            },
+                            child: Text(
+                              "Insert",
+                              style: TextStyle(color: Colors.white),
+                            ))
                       ],
                     ),
                   ))
                 : Container(),
           ),
           Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              border: Border.all(color: Colors.grey, width: 1),
+              borderRadius: BorderRadius.circular(6),
+            ),
             height: 500,
-            child: Center(
+            width: 400,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: DataTable(
                 columns: [
                   DataColumn(label: Text("Sl.No")),
                   DataColumn(label: Text("Department")),
-                  DataColumn(label: Text("Delete")),
+                  DataColumn(label: Text("Edit")),
+                  DataColumn(label: Text("Delete"))
                 ],
                 rows: DeptList.asMap().entries.map((entry) {
                   print(entry.value);
@@ -162,9 +194,19 @@ class _DepartmentScreenState extends State<DepartmentScreen>
                     DataCell(Text((entry.key + 1).toString())),
                     DataCell(Text(entry.value['department_name'])),
                     DataCell(IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.green),
+                      onPressed: () {
+                        setState(() {
+                          _deptController.text = entry.value['department_name'];
+                          eid = entry.value['department_id'];
+                        });
+                      },
+                    )),
+                    DataCell(IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
-                        //delete function here
+                        deldepartment(entry.value['department_id'].toString());
+                        //delete function
                       },
                     ))
                   ]);
