@@ -123,51 +123,35 @@ class _DepartmentScreenState extends State<DepartmentScreen>
             curve: Curves.easeInOut,
             child: _isFormVisible
                 ? Form(
-                    child: Container(
-                    height: 250,
-                    width: 500,
-                    decoration: BoxDecoration(
-                        color: Color(0xffeeeeeee),
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color.fromARGB(255, 246, 243, 243)
-                                .withOpacity(0.5),
-                          )
-                        ]),
-                    child: Column(
-                      children: [
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFieldStyle(
-                            inputController: _deptController,
-                            label: "Department",
-                          ),
-                        )),
-                        SizedBox(
-                          width: 10,
+                    child: Row(
+                    children: [
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFieldStyle(
+                          inputController: _deptController,
+                          label: "Department",
                         ),
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF017AFF),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 70, vertical: 20),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5))),
-                            onPressed: () {
-                              if (eid == 0) {
-                                insertDept();
-                              } else {
-                                editdept();
-                              }
-                            },
-                            child: Text(
-                              "Insert",
-                              style: TextStyle(color: Colors.white),
-                            ))
-                      ],
-                    ),
+                      )),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF017AFF),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 70, vertical: 20),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5))),
+                          onPressed: () {
+                            if (eid == 0) {
+                              insertDept();
+                            } else {
+                              editdept();
+                            }
+                          },
+                          child: Text(
+                            "Insert",
+                            style: TextStyle(color: Colors.white),
+                          ))
+                    ],
                   ))
                 : Container(),
           ),
@@ -199,6 +183,7 @@ class _DepartmentScreenState extends State<DepartmentScreen>
                         setState(() {
                           _deptController.text = entry.value['department_name'];
                           eid = entry.value['department_id'];
+                          _isFormVisible = !_isFormVisible;
                         });
                       },
                     )),

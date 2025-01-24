@@ -18,12 +18,14 @@ class _ClubsScreenState extends State<ClubsScreen>
 // list to store tbl data for displaying
   List<Map<String, dynamic>> Clublist = [];
 
+//insert
   Future<void> insertClub() async {
     try {
       String club = _clubController.text;
       await supabase.from("tbl_club").insert({
         "club_name": club,
       });
+      fetchClub();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         //Data added message
         content: Text(
@@ -39,6 +41,7 @@ class _ClubsScreenState extends State<ClubsScreen>
     }
   }
 
+//display
   Future<void> fetchClub() async {
     try {
       final response = await supabase.from('tbl_club').select();
@@ -47,6 +50,31 @@ class _ClubsScreenState extends State<ClubsScreen>
       });
     } catch (e) {
       print("ERROR FETCHING DATA: $e");
+    }
+  }
+
+//delete
+  Future<void> delCLub(String did) async {
+    try {
+      await supabase.from('tbl_club').delete().eq("club_id", did);
+      fetchClub();
+    } catch (e) {
+      print("ERROR: $e");
+    }
+  }
+
+  //edit
+  int eid = 0;
+
+  Future<void> editclub() async {
+    try {
+      await supabase
+          .from('tbl_club')
+          .update({'club_name': _clubController.text}).eq('club_id', eid);
+      fetchClub();
+      _clubController.clear();
+    } catch (e) {
+      print("ERROR: $e");
     }
   }
 
@@ -69,14 +97,26 @@ class _ClubsScreenState extends State<ClubsScreen>
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF161616),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 18)),
                   onPressed: () {
                     setState(() {
                       _isFormVisible =
                           !_isFormVisible; // Toggle form visibility
                     });
                   },
-                  label: Text("Add Club"),
-                  icon: Icon(Icons.add),
+                  label: Text(
+                    "Add Club",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
               )
             ],
@@ -89,15 +129,27 @@ class _ClubsScreenState extends State<ClubsScreen>
                     child: Row(
                     children: [
                       Expanded(
-                          child: TextFieldStyle(
-                        inputController: _clubController,
-                        label: "Club",
+                          child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFieldStyle(
+                          inputController: _clubController,
+                          label: "Club",
+                        ),
                       )),
                       ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF017AFF),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 70, vertical: 20),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5))),
                           onPressed: () {
                             insertClub();
                           },
-                          child: Text("Insert"))
+                          child: Text(
+                            "Insert",
+                            style: TextStyle(color: Colors.white),
+                          ))
                     ],
                   ))
                 : Container(),
@@ -126,11 +178,18 @@ class _ClubsScreenState extends State<ClubsScreen>
                       DataCell(Text(entry.value['club_name'])),
                       DataCell(IconButton(
                         icon: const Icon(Icons.edit, color: Colors.green),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _clubController.text = entry.value['club_name'];
+                            eid = entry.value['club_id'];
+                            _isFormVisible = !_isFormVisible;
+                          });
+                        },
                       )),
                       DataCell(IconButton(
                         icon: const Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
+                          delCLub(entry.value['club_id'].toString());
                           //delete function
                         },
                       ))

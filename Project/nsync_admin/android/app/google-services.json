@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "249666075575",
+    "project_id": "nsync-fb772",
+    "storage_bucket": "nsync-fb772.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249666075575:android:65cf18e206401076914632",
+        "android_client_info": {
+          "package_name": "com.example.nsync_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe3s81v1RuPHMClsy-NuDMCMer3l0u1Z0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249666075575:android:63d14a88e3681ecc914632",
+        "android_client_info": {
+          "package_name": "com.example.nsync_faculty"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe3s81v1RuPHMClsy-NuDMCMer3l0u1Z0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
