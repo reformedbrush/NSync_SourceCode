@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/insert_form.dart';
+import 'package:nsync_admin/main.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({super.key});
@@ -13,6 +14,24 @@ class _EventsScreenState extends State<EventsScreen>
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
   final TextEditingController _eventController = TextEditingController();
+
+  //insert
+  Future<void> eventInsert() async {
+    try {
+      String Events = _eventController.text;
+      await supabase.from('tbl_events').insert({'event_name': Events});
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          "Event Details Inserted Sucessfully",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+      ));
+    } catch (e) {
+      print("ERROR INSERTING DATA: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,14 +45,26 @@ class _EventsScreenState extends State<EventsScreen>
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF161616),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 18)),
                   onPressed: () {
                     setState(() {
                       _isFormVisible =
                           !_isFormVisible; // Toggle form visibility
                     });
                   },
-                  label: Text("Add Events"),
-                  icon: Icon(Icons.add),
+                  label: Text(
+                    "Add Events",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
               )
             ],
@@ -50,7 +81,11 @@ class _EventsScreenState extends State<EventsScreen>
                         inputController: _eventController,
                         label: "Events",
                       )),
-                      ElevatedButton(onPressed: () {}, child: Text("Insert"))
+                      ElevatedButton(
+                          onPressed: () {
+                            eventInsert();
+                          },
+                          child: Text("Insert"))
                     ],
                   ))
                 : Container(),

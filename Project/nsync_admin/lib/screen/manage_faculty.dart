@@ -131,7 +131,7 @@ class _FacultyScreenState extends State<FacultyScreen>
             child: _isFormVisible
                 ? Form(
                     child: Container(
-                    width: 500,
+                    width: 700,
                     child: Row(
                       children: [
                         Expanded(

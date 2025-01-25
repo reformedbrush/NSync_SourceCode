@@ -126,31 +126,35 @@ class _ClubsScreenState extends State<ClubsScreen>
             curve: Curves.easeInOut,
             child: _isFormVisible
                 ? Form(
+                    child: Container(
+                    width: 700,
+                    padding: EdgeInsets.all(20),
                     child: Row(
-                    children: [
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFieldStyle(
-                          inputController: _clubController,
-                          label: "Club",
-                        ),
-                      )),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF017AFF),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 70, vertical: 20),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5))),
-                          onPressed: () {
-                            insertClub();
-                          },
-                          child: Text(
-                            "Insert",
-                            style: TextStyle(color: Colors.white),
-                          ))
-                    ],
+                      children: [
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFieldStyle(
+                            inputController: _clubController,
+                            label: "Club",
+                          ),
+                        )),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF017AFF),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 70, vertical: 20),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5))),
+                            onPressed: () {
+                              insertClub();
+                            },
+                            child: Text(
+                              "Insert",
+                              style: TextStyle(color: Colors.white),
+                            ))
+                      ],
+                    ),
                   ))
                 : Container(),
           ),
