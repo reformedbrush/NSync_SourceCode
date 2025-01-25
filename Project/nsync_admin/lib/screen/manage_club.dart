@@ -13,6 +13,7 @@ class _ClubsScreenState extends State<ClubsScreen>
     with SingleTickerProviderStateMixin {
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
+
   final TextEditingController _clubController = TextEditingController();
 
 // list to store tbl data for displaying
@@ -143,11 +144,15 @@ class _ClubsScreenState extends State<ClubsScreen>
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xFF017AFF),
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 70, vertical: 20),
+                                    horizontal: 70, vertical: 22),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),
                             onPressed: () {
-                              insertClub();
+                              if (eid == 0) {
+                                insertClub();
+                              } else {
+                                editclub();
+                              }
                             },
                             child: Text(
                               "Insert",

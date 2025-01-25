@@ -137,7 +137,7 @@ class _DepartmentScreenState extends State<DepartmentScreen>
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFF017AFF),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 70, vertical: 20),
+                                  horizontal: 70, vertical: 22),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5))),
                           onPressed: () {
