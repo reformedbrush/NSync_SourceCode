@@ -123,41 +123,57 @@ class _DepartmentScreenState extends State<DepartmentScreen>
             curve: Curves.easeInOut,
             child: _isFormVisible
                 ? Form(
-                    child: Row(
-                    children: [
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFieldStyle(
-                          inputController: _deptController,
-                          label: "Department",
+                    child: Container(
+                    width: 700,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFieldStyle(
+                                inputController: _deptController,
+                                label: "Department",
+                              ),
+                            )),
+                          ],
                         ),
-                      )),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF017AFF),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 70, vertical: 22),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5))),
-                          onPressed: () {
-                            if (eid == 0) {
-                              insertDept();
-                            } else {
-                              editdept();
-                            }
-                          },
-                          child: Text(
-                            "Insert",
-                            style: TextStyle(color: Colors.white),
-                          ))
-                    ],
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF017AFF),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 70, vertical: 22),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5))),
+                            onPressed: () {
+                              if (eid == 0) {
+                                insertDept();
+                              } else {
+                                editdept();
+                              }
+                            },
+                            child: Text(
+                              "Insert",
+                              style: TextStyle(color: Colors.white),
+                            )),
+                        SizedBox(
+                          height: 50,
+                        )
+                      ],
+                    ),
                   ))
                 : Container(),
           ),
           Container(
+            child: Center(
+              child: Text("Departments Table",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+            ),
+          ),
+          Container(
             decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: Color.fromARGB(255, 249, 249, 249),
               border: Border.all(color: Colors.grey, width: 1),
               borderRadius: BorderRadius.circular(6),
             ),

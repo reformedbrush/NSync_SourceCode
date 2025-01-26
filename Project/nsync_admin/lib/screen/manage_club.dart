@@ -130,16 +130,20 @@ class _ClubsScreenState extends State<ClubsScreen>
                     child: Container(
                     width: 700,
                     padding: EdgeInsets.all(20),
-                    child: Row(
+                    child: Column(
                       children: [
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFieldStyle(
-                            inputController: _clubController,
-                            label: "Club",
-                          ),
-                        )),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFieldStyle(
+                                inputController: _clubController,
+                                label: "Club",
+                              ),
+                            )),
+                          ],
+                        ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xFF017AFF),
@@ -164,8 +168,14 @@ class _ClubsScreenState extends State<ClubsScreen>
                 : Container(),
           ),
           Container(
+            child: Center(
+              child: Text("Clubs Table",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+            ),
+          ),
+          Container(
             decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: const Color.fromARGB(255, 249, 249, 249),
               border: Border.all(color: Colors.grey, width: 1),
               borderRadius: BorderRadius.circular(6),
             ),

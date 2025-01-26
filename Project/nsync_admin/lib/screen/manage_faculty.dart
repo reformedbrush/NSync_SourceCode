@@ -14,10 +14,17 @@ class _FacultyScreenState extends State<FacultyScreen>
   bool _isFormVisible = false; // To manage form visibility
   String? selectedDept;
   List<Map<String, dynamic>> facultyList = [];
-  List<Map<String, dynamic>> _deptList = [];
-
+/*   List<Map<String, dynamic>> _deptList = [];
+ */
   final Duration _animationDuration = const Duration(milliseconds: 300);
+
+  //Controllers
   final TextEditingController _facultyController = TextEditingController();
+  final TextEditingController _facContactController = TextEditingController();
+  final TextEditingController _facEmailController = TextEditingController();
+  final TextEditingController _facPasswordController = TextEditingController();
+  final TextEditingController _facDesignationController =
+      TextEditingController();
 
   Future<void> insFaculty() async {
     try {
@@ -50,7 +57,7 @@ class _FacultyScreenState extends State<FacultyScreen>
     }
   }
 
-  Future<void> fetchDepartment() async {
+  /* Future<void> fetchDepartment() async {
     try {
       final response = await supabase.from('tbl_department').select();
       if (response != null && response is List<dynamic>) {
@@ -67,7 +74,7 @@ class _FacultyScreenState extends State<FacultyScreen>
     } catch (e) {
       print("ERROR FETCHING DEPARTMENTS: $e");
     }
-  }
+  } */
 
   Future<void> fetchFaculty() async {
     try {
@@ -84,7 +91,8 @@ class _FacultyScreenState extends State<FacultyScreen>
   @override
   void initState() {
     super.initState();
-    fetchDepartment();
+/*     fetchDepartment();
+ */
     fetchFaculty();
   }
 
@@ -141,14 +149,50 @@ class _FacultyScreenState extends State<FacultyScreen>
                               padding: const EdgeInsets.all(8.0),
                               child: TextFieldStyle(
                                 inputController: _facultyController,
-                                label: "Faculty",
+                                label: "Faculty Name",
                               ),
                             )),
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: TextFieldStyle(
+                                  label: "Contact",
+                                  inputController: _facContactController),
+                            ))
                             /* Expanded(
                                 child: DropdownButtonFormField<String>(
                                     value: selectedDept,
                                     items: items,
                                     onChanged: onChanged)) */
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: TextFieldStyle(
+                                  label: "Email",
+                                  inputController: _facEmailController),
+                            )),
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: TextFieldStyle(
+                                  label: "Password",
+                                  inputController: _facPasswordController),
+                            ))
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: TextFieldStyle(
+                                  label: 'Designation',
+                                  inputController: _facDesignationController),
+                            ))
                           ],
                         ),
                         ElevatedButton(
@@ -162,18 +206,35 @@ class _FacultyScreenState extends State<FacultyScreen>
                             child: Text(
                               "Insert",
                               style: TextStyle(color: Colors.white),
-                            ))
+                            )),
+                        SizedBox(
+                          height: 50,
+                        )
                       ],
                     ),
                   ))
                 : Container(),
           ),
           Container(
-            height: 500,
             child: Center(
-              child: Text("Faculty Data"),
+              child: Text("Faculty Data",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
             ),
-          )
+          ),
+          Container(
+              child: Padding(
+            padding: EdgeInsets.all(8),
+            child: DataTable(columns: [
+              DataColumn(label: Text("Sl.No")),
+              DataColumn(label: Text("Name")),
+              DataColumn(label: Text("Designation")),
+              DataColumn(label: Text("Email")),
+              DataColumn(label: Text("Password")),
+              DataColumn(label: Text("Contact No.")),
+              DataColumn(label: Text("Edit")),
+              DataColumn(label: Text("Delete"))
+            ], rows: []),
+          ))
         ],
       ),
     );
