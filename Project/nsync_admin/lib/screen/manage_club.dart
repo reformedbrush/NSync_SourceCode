@@ -180,7 +180,6 @@ class _ClubsScreenState extends State<ClubsScreen>
               borderRadius: BorderRadius.circular(6),
             ),
             height: 500,
-            width: 400,
             child: Padding(
               padding: EdgeInsets.all(8),
               child: DataTable(
