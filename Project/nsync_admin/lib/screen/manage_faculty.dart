@@ -132,18 +132,37 @@ class _FacultyScreenState extends State<FacultyScreen>
                 ? Form(
                     child: Container(
                     width: 700,
-                    child: Row(
+                    child: Column(
                       children: [
-                        Expanded(
-                            child: TextFieldStyle(
-                          inputController: _facultyController,
-                          label: "Faculty",
-                        )),
-                        /* Expanded(
-                            child: DropdownButtonFormField<String>(
-                                value: selectedDept,
-                                items: items,
-                                onChanged: onChanged)) */
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFieldStyle(
+                                inputController: _facultyController,
+                                label: "Faculty",
+                              ),
+                            )),
+                            /* Expanded(
+                                child: DropdownButtonFormField<String>(
+                                    value: selectedDept,
+                                    items: items,
+                                    onChanged: onChanged)) */
+                          ],
+                        ),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 22, horizontal: 70),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5))),
+                            onPressed: () {},
+                            child: Text(
+                              "Insert",
+                              style: TextStyle(color: Colors.white),
+                            ))
                       ],
                     ),
                   ))

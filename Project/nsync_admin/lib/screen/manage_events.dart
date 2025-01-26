@@ -18,8 +18,8 @@ class _EventsScreenState extends State<EventsScreen>
   final TextEditingController _eventController = TextEditingController();
   final TextEditingController _evDetailController = TextEditingController();
   final TextEditingController _evVenueController = TextEditingController();
-  /* final TextEditingController _evForDateController = TextEditingController();
-  final TextEditingController _evLastDateController = TextEditingController(); */
+  final TextEditingController _evForDateController = TextEditingController();
+  final TextEditingController _evLastDateController = TextEditingController();
 
   //list to store tbl data
   List<Map<String, dynamic>> EventList = [];
@@ -30,8 +30,15 @@ class _EventsScreenState extends State<EventsScreen>
       String Name = _eventController.text;
       String Details = _evDetailController.text;
       String Venue = _evVenueController.text;
-      await supabase.from('tbl_events').insert(
-          {'event_name': Name, 'event_details': Details, 'event_venue': Venue});
+      String ForDate = _evForDateController.text;
+      String LastDate = _evLastDateController.text;
+      await supabase.from('tbl_events').insert({
+        'event_name': Name,
+        'event_details': Details,
+        'event_venue': Venue,
+        'event_fordate': ForDate,
+        'event_lastdate': LastDate
+      });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
           "Event Details Inserted Sucessfully",
@@ -67,14 +74,29 @@ class _EventsScreenState extends State<EventsScreen>
       await supabase.from('tbl_events').update({
         'event_name': _eventController,
         'event_venue': _evVenueController,
-        'event_details': _evDetailController
+        'event_details': _evDetailController,
+        'event_fordate': _evForDateController,
+        'event_lastdate': _evLastDateController
       }).eq('event_id', eid);
       fetchEvents();
       _eventController.clear();
       _evDetailController.clear();
       _evVenueController.clear();
+      _evForDateController.clear();
+      _evLastDateController.clear();
     } catch (e) {
       print("ERROR UPDATING DATA: $e");
+    }
+  }
+
+  //Delete
+
+  Future<void> DelEvent(String did) async {
+    try {
+      await supabase.from("tbl_events").delete().eq("event_id", did);
+      fetchEvents();
+    } catch (e) {
+      print("ERROR: $e");
     }
   }
 
@@ -161,6 +183,25 @@ class _EventsScreenState extends State<EventsScreen>
                             )),
                           ],
                         ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: TextFieldStyle(
+                                      label: "For Date: YYYY-MM-DD",
+                                      inputController: _evForDateController,
+                                    ))),
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: TextFieldStyle(
+                                label: "Last Date: YYYY-MM-DD",
+                                inputController: _evLastDateController,
+                              ),
+                            ))
+                          ],
+                        ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue,
@@ -202,6 +243,8 @@ class _EventsScreenState extends State<EventsScreen>
                     DataColumn(label: Text("Event")),
                     DataColumn(label: Text("Venue")),
                     DataColumn(label: Text("Details")),
+                    DataColumn(label: Text("For Date")),
+                    DataColumn(label: Text("Last Date")),
                     DataColumn(label: Text("Edit")),
                     DataColumn(label: Text("Delete"))
                   ],
@@ -212,6 +255,8 @@ class _EventsScreenState extends State<EventsScreen>
                       DataCell(Text(entry.value['event_name'])),
                       DataCell(Text(entry.value['event_venue'])),
                       DataCell(Text(entry.value['event_details'])),
+                      DataCell(Text(entry.value['event_fordate'])),
+                      DataCell(Text(entry.value['event_lastdate'])),
                       DataCell(IconButton(
                         icon: const Icon(Icons.edit, color: Colors.green),
                         onPressed: () {
@@ -229,7 +274,7 @@ class _EventsScreenState extends State<EventsScreen>
                       DataCell(IconButton(
                         icon: const Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
-                          /* delCLub(entry.value['club_id'].toString()); */
+                          DelEvent(entry.value['event_id'].toString());
                           //delete function
                         },
                       ))
