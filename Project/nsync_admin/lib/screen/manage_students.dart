@@ -83,6 +83,17 @@ class _StudentScreenState extends State<StudentScreen>
     }
   }
 
+  //delete
+
+  Future<void> deltStudent(String did) async {
+    try {
+      await supabase.from('tbl_student').delete().eq('student_id', did);
+      fetchStudent();
+    } catch (e) {
+      print("ERROR: $e");
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -194,6 +205,7 @@ class _StudentScreenState extends State<StudentScreen>
                             onPressed: () {
                               if (eid == 0) {
                                 studentInsert();
+                                fetchStudent();
                               } else {
                                 editStudent();
                               }
@@ -253,7 +265,7 @@ class _StudentScreenState extends State<StudentScreen>
                           _stContactController.text =
                               entry.value['student_contact'];
                           eid = entry.value['student_id'];
-                          _isFormVisible = !_isFormVisible;
+                          _isFormVisible = true;
                         });
                       },
                     )),
@@ -261,6 +273,7 @@ class _StudentScreenState extends State<StudentScreen>
                       icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
                         //delete function
+                        deltStudent(entry.value['student_id'].toString());
                       },
                     ))
                   ]);

@@ -72,11 +72,11 @@ class _EventsScreenState extends State<EventsScreen>
   Future<void> editEvent() async {
     try {
       await supabase.from('tbl_events').update({
-        'event_name': _eventController,
-        'event_venue': _evVenueController,
-        'event_details': _evDetailController,
-        'event_fordate': _evForDateController,
-        'event_lastdate': _evLastDateController
+        'event_name': _eventController.text,
+        'event_venue': _evVenueController.text,
+        'event_details': _evDetailController.text,
+        'event_fordate': _evForDateController.text,
+        'event_lastdate': _evLastDateController.text
       }).eq('event_id', eid);
       fetchEvents();
       _eventController.clear();
@@ -249,7 +249,6 @@ class _EventsScreenState extends State<EventsScreen>
                     DataColumn(label: Text("Delete"))
                   ],
                   rows: EventList.asMap().entries.map((entry) {
-                    print(entry.value);
                     return DataRow(cells: [
                       DataCell(Text((entry.key + 1).toString())),
                       DataCell(Text(entry.value['event_name'])),
@@ -261,13 +260,19 @@ class _EventsScreenState extends State<EventsScreen>
                         icon: const Icon(Icons.edit, color: Colors.green),
                         onPressed: () {
                           setState(() {
+                            _evForDateController.text =
+                                entry.value['event_fordate'];
+                            _evLastDateController.text =
+                                entry.value['event_lastdate'];
                             _eventController.text = entry.value['event_name'];
                             _evDetailController.text =
                                 entry.value['event_details'];
                             _evVenueController.text =
                                 entry.value['event_venue'];
+
                             eid = entry.value['event_id'];
-                            _isFormVisible = !_isFormVisible;
+                            _isFormVisible = true;
+                            print(eid);
                           });
                         },
                       )),
