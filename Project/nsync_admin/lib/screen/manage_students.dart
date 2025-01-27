@@ -39,8 +39,7 @@ class _StudentScreenState extends State<StudentScreen>
       String Email = _stEmailController.text;
       String Password = _stPasswordController.text;
       String Contact = _stContactController.text;
-/*       String? url = await photoUpload(eid);
- */
+
       if (selectedDept == null) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(

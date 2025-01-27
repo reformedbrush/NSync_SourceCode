@@ -13,9 +13,10 @@ class _FacultyScreenState extends State<FacultyScreen>
     with SingleTickerProviderStateMixin {
   bool _isFormVisible = false; // To manage form visibility
   String? selectedDept;
+
   List<Map<String, dynamic>> facultyList = [];
-/*   List<Map<String, dynamic>> _deptList = [];
- */
+  List<Map<String, dynamic>> DeptList = [];
+
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
   //Controllers
@@ -25,10 +26,14 @@ class _FacultyScreenState extends State<FacultyScreen>
   final TextEditingController _facPasswordController = TextEditingController();
   final TextEditingController _facDesignationController =
       TextEditingController();
-
+  // insert
   Future<void> insFaculty() async {
     try {
-      String Faculty = _facultyController.text;
+      String Name = _facultyController.text;
+      String Email = _facEmailController.text;
+      String Password = _facPasswordController.text;
+      String Contact = _facContactController.text;
+      String Designation = _facDesignationController.text;
       if (selectedDept == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -38,9 +43,14 @@ class _FacultyScreenState extends State<FacultyScreen>
         );
         return;
       }
-      await supabase
-          .from('tbl_faculty')
-          .insert({'faculty_name': Faculty, 'department_name': selectedDept});
+      await supabase.from('tbl_faculty').insert({
+        'faculty_name': Name,
+        'faculty_email': Email,
+        'faculty_password': Password,
+        'faculty_contact': Contact,
+        'faculty_designation': Designation,
+        'department_id': selectedDept
+      });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
           "Faculty Data Inserted Sucessfully",
@@ -48,33 +58,34 @@ class _FacultyScreenState extends State<FacultyScreen>
         ),
         backgroundColor: Colors.green,
       ));
-      _facultyController.clear(); // reset inserted value after insertion
+      _facultyController.clear();
+      _facDesignationController.clear();
+      _facEmailController.clear();
+      _facPasswordController.clear();
+      _facContactController.clear(); // reset inserted value after insertion
       setState(() {
         selectedDept = null; //reset selection
       });
+      fetchFaculty();
     } catch (e) {
       print("ERROR INSERTING DATA: $e");
     }
   }
 
-  /* Future<void> fetchDepartment() async {
+  //select
+
+  Future<void> fetchDept() async {
     try {
       final response = await supabase.from('tbl_department').select();
-      if (response != null && response is List<dynamic>) {
-        print(response);
+      if (response.isNotEmpty) {
         setState(() {
-          _deptList = response
-              .map((item) => {
-                    'department_id': item['department_id'].toString(),
-                    'department_name': item['department_name'],
-                  })
-              .toList();
+          DeptList = response;
         });
       }
     } catch (e) {
-      print("ERROR FETCHING DEPARTMENTS: $e");
+      print("ERROR FETCHING DISTRICT: $e");
     }
-  } */
+  }
 
   Future<void> fetchFaculty() async {
     try {
@@ -88,11 +99,52 @@ class _FacultyScreenState extends State<FacultyScreen>
     }
   }
 
+  //edit
+
+  int eid = 0;
+
+  Future<void> editFaculty() async {
+    try {
+      await supabase.from('tbl_faulty').update({
+        'faculty_name': _facultyController.text,
+        'faculty_designation': _facDesignationController.text,
+        'faculty_email': _facEmailController.text,
+        'faculty_password': _facPasswordController.text,
+        'faculty_contact': _facContactController.text
+      }).eq('faculty_id', eid);
+      fetchFaculty();
+      _facContactController.clear();
+      _facDesignationController.clear();
+      _facEmailController.clear();
+      _facPasswordController.clear();
+      _facContactController.clear();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          "Data Edited Sucessfully",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+      ));
+    } catch (e) {
+      print("ERROR EDITING DATA: $e");
+    }
+  }
+
+  // delete
+
+  Future<void> delFaculty(String did) async {
+    try {
+      await supabase.from('tbl_faculty').delete().eq('faculty_id', did);
+      fetchFaculty();
+    } catch (e) {
+      print("ERROR DELETING DATA: $e");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-/*     fetchDepartment();
- */
+    fetchDept();
     fetchFaculty();
   }
 
@@ -122,11 +174,11 @@ class _FacultyScreenState extends State<FacultyScreen>
                     });
                   },
                   label: Text(
-                    "Add Faculty",
+                    _isFormVisible ? "Cancel" : "Add Student",
                     style: TextStyle(color: Colors.white),
                   ),
                   icon: Icon(
-                    Icons.add,
+                    _isFormVisible ? Icons.cancel : Icons.add,
                     color: Colors.white,
                   ),
                 ),
@@ -149,7 +201,7 @@ class _FacultyScreenState extends State<FacultyScreen>
                               padding: const EdgeInsets.all(8.0),
                               child: TextFieldStyle(
                                 inputController: _facultyController,
-                                label: "Faculty Name",
+                                label: "Name",
                               ),
                             )),
                             Expanded(
@@ -158,12 +210,7 @@ class _FacultyScreenState extends State<FacultyScreen>
                               child: TextFieldStyle(
                                   label: "Contact",
                                   inputController: _facContactController),
-                            ))
-                            /* Expanded(
-                                child: DropdownButtonFormField<String>(
-                                    value: selectedDept,
-                                    items: items,
-                                    onChanged: onChanged)) */
+                            )),
                           ],
                         ),
                         Row(
@@ -192,6 +239,25 @@ class _FacultyScreenState extends State<FacultyScreen>
                               child: TextFieldStyle(
                                   label: 'Designation',
                                   inputController: _facDesignationController),
+                            )),
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: DropdownButtonFormField<String>(
+                                  value: selectedDept,
+                                  hint: const Text("Select Department"),
+                                  items: DeptList.map((department) {
+                                    return DropdownMenuItem(
+                                        value: department['department_id']
+                                            .toString(),
+                                        child: Text(
+                                            department['department_name']));
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedDept = newValue;
+                                    });
+                                  }),
                             ))
                           ],
                         ),
@@ -202,7 +268,13 @@ class _FacultyScreenState extends State<FacultyScreen>
                                     vertical: 22, horizontal: 70),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),
-                            onPressed: () {},
+                            onPressed: () {
+                              if (eid == 0) {
+                                insFaculty();
+                              } else {
+                                editFaculty();
+                              }
+                            },
                             child: Text(
                               "Insert",
                               style: TextStyle(color: Colors.white),
@@ -224,16 +296,56 @@ class _FacultyScreenState extends State<FacultyScreen>
           Container(
               child: Padding(
             padding: EdgeInsets.all(8),
-            child: DataTable(columns: [
-              DataColumn(label: Text("Sl.No")),
-              DataColumn(label: Text("Name")),
-              DataColumn(label: Text("Designation")),
-              DataColumn(label: Text("Email")),
-              DataColumn(label: Text("Password")),
-              DataColumn(label: Text("Contact No.")),
-              DataColumn(label: Text("Edit")),
-              DataColumn(label: Text("Delete"))
-            ], rows: []),
+            child: DataTable(
+              columns: [
+                DataColumn(label: Text("Sl.No")),
+                DataColumn(label: Text("Name")),
+                DataColumn(label: Text("Designation")),
+                DataColumn(label: Text("Department")),
+                DataColumn(label: Text("Email")),
+                DataColumn(label: Text("Password")),
+                DataColumn(label: Text("Contact No.")),
+                DataColumn(label: Text("Edit")),
+                DataColumn(label: Text("Delete"))
+              ],
+              rows: facultyList.asMap().entries.map((entry) {
+                print(entry.value);
+                return DataRow(cells: [
+                  DataCell(Text((entry.key + 1000).toString())),
+                  DataCell(Text(entry.value['faculty_name'])),
+                  DataCell(Text(entry.value['faculty_designation'])),
+                  DataCell(
+                      Text(entry.value['tbl_department']['department_name'])),
+                  DataCell(Text(entry.value['faculty_email'])),
+                  DataCell(Text(entry.value['faculty_password'])),
+                  DataCell(Text(entry.value['faculty_contact'])),
+                  DataCell(IconButton(
+                    icon: const Icon(Icons.edit, color: Colors.green),
+                    onPressed: () {
+                      setState(() {
+                        _facultyController.text = entry.value['faculty_name'];
+                        _facDesignationController.text =
+                            entry.value['faculty_designation'];
+                        _facEmailController.text = entry.value['faculty_email'];
+                        _facPasswordController.text =
+                            entry.value['faculty_password'];
+                        _facContactController.text =
+                            entry.value['faculty_contact'];
+                        eid = entry.value['faculty_id'];
+                        _isFormVisible = true;
+                      });
+                    },
+                  )),
+                  DataCell(IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      //delete function
+                      delFaculty(entry.value['faculty_id'].toString());
+                    },
+                  ))
+                ]);
+              }).toList(),
+            ),
           ))
         ],
       ),
