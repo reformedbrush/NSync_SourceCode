@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/insert_form.dart';
 import 'package:nsync_admin/main.dart';
@@ -35,6 +39,8 @@ class _StudentScreenState extends State<StudentScreen>
       String Email = _stEmailController.text;
       String Password = _stPasswordController.text;
       String Contact = _stContactController.text;
+/*       String? url = await photoUpload(eid);
+ */
       if (selectedDept == null) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
@@ -45,7 +51,7 @@ class _StudentScreenState extends State<StudentScreen>
         ));
         return;
       }
-      ;
+
       await supabase.from('tbl_student').insert({
         'student_name': Name,
         'student_admno': Admission_No,
@@ -136,9 +142,40 @@ class _StudentScreenState extends State<StudentScreen>
     }
   }
 
+  //file upload
+
+  PlatformFile? pickedImage;
+
+  Future<void> handleImagePick() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+    );
+    if (result != null) {
+      setState(() {
+        pickedImage = result.files.first;
+      });
+    }
+  }
+
+  Future<String?> photoUpload(String uid) async {
+    try {
+      final bucketName = 'student';
+      final filePath = "$uid-${pickedImage!.name}";
+      await supabase.storage.from(bucketName).uploadBinary(
+            filePath,
+            pickedImage!.bytes!, // Use file.bytes for Flutter Web
+          );
+      final publicUrl =
+          supabase.storage.from(bucketName).getPublicUrl(filePath);
+      return publicUrl;
+    } catch (e) {
+      print("Error photo upload: $e");
+      return null;
+    }
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchStudent();
     fetchDept();
@@ -190,6 +227,41 @@ class _StudentScreenState extends State<StudentScreen>
                     width: 700,
                     child: Column(
                       children: [
+                        Row(
+                          children: [
+                            Container(
+                              height: 120,
+                              width: 120,
+                              child: pickedImage == null
+                                  ? GestureDetector(
+                                      onTap: handleImagePick,
+                                      child: Icon(
+                                        Icons.add_a_photo,
+                                        color: Color(0xFF0277BD),
+                                        size: 50,
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: handleImagePick,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: pickedImage!.bytes != null
+                                            ? Image.memory(
+                                                Uint8List.fromList(pickedImage!
+                                                    .bytes!), // For web
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.file(
+                                                File(pickedImage!
+                                                    .path!), // For mobile/desktop
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                    ),
+                            ),
+                          ],
+                        ),
                         Row(
                           children: [
                             Expanded(
@@ -301,6 +373,8 @@ class _StudentScreenState extends State<StudentScreen>
                   DataColumn(label: Text('Password')),
                   DataColumn(label: Text('Contact No.')),
                   DataColumn(label: Text('Department')),
+/*                   DataColumn(label: Text('Photo')),
+ */
                   DataColumn(label: Text("Edit")),
                   DataColumn(label: Text("Delete"))
                 ],
