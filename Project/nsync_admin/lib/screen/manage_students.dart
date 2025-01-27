@@ -11,10 +11,15 @@ class StudentScreen extends StatefulWidget {
 
 class _StudentScreenState extends State<StudentScreen>
     with SingleTickerProviderStateMixin {
+/*   final _formkey = GlobalKey<FormState>();
+ */
+  String? selectedDept;
+
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
   List<Map<String, dynamic>> StudList = [];
+  List<Map<String, dynamic>> DeptList = [];
 
   //controller
   final TextEditingController _studentController = TextEditingController();
@@ -30,12 +35,24 @@ class _StudentScreenState extends State<StudentScreen>
       String Email = _stEmailController.text;
       String Password = _stPasswordController.text;
       String Contact = _stContactController.text;
+      if (selectedDept == null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Please Select A Department",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ));
+        return;
+      }
+      ;
       await supabase.from('tbl_student').insert({
         'student_name': Name,
         'student_admno': Admission_No,
         'student_email': Email,
         'student_password': Password,
-        'student_contact': Contact
+        'student_contact': Contact,
+        'department_name': selectedDept
       });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
@@ -44,6 +61,15 @@ class _StudentScreenState extends State<StudentScreen>
         ),
         backgroundColor: Colors.green,
       ));
+      fetchStudent();
+      _studentController.clear();
+      _stAdmnoController.clear();
+      _stEmailController.clear();
+      _stPasswordController.clear();
+      _stContactController.clear();
+      setState(() {
+        selectedDept = null;
+      });
     } catch (e) {
       print("ERROR: $e");
     }
@@ -51,7 +77,8 @@ class _StudentScreenState extends State<StudentScreen>
 
   Future<void> fetchStudent() async {
     try {
-      final response = await supabase.from('tbl_student').select();
+      final response =
+          await supabase.from('tbl_student').select('*,tbl_department(*)');
       setState(() {
         StudList = response;
       });
@@ -94,11 +121,27 @@ class _StudentScreenState extends State<StudentScreen>
     }
   }
 
+  // fetch department
+
+  Future<void> fetchDept() async {
+    try {
+      final response = await supabase.from('tbl_department').select();
+      if (response.isNotEmpty) {
+        setState(() {
+          DeptList = response;
+        });
+      }
+    } catch (e) {
+      print("ERROR FETCHING DISTRICT: $e");
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     fetchStudent();
+    fetchDept();
   }
 
   @override
@@ -127,11 +170,11 @@ class _StudentScreenState extends State<StudentScreen>
                     });
                   },
                   label: Text(
-                    "Add Student",
+                    _isFormVisible ? "Cancel" : "Add Student",
                     style: TextStyle(color: Colors.white),
                   ),
                   icon: Icon(
-                    Icons.add,
+                    _isFormVisible ? Icons.cancel : Icons.add,
                     color: Colors.white,
                   ),
                 ),
@@ -192,6 +235,25 @@ class _StudentScreenState extends State<StudentScreen>
                               child: TextFieldStyle(
                                   label: 'Contact',
                                   inputController: _stContactController),
+                            )),
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: DropdownButtonFormField<String>(
+                                  value: selectedDept,
+                                  hint: const Text("Select Department"),
+                                  items: DeptList.map((department) {
+                                    return DropdownMenuItem(
+                                        value: department['department_id']
+                                            .toString(),
+                                        child: Text(
+                                            department['department_name']));
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedDept = newValue;
+                                    });
+                                  }),
                             ))
                           ],
                         ),
@@ -205,7 +267,6 @@ class _StudentScreenState extends State<StudentScreen>
                             onPressed: () {
                               if (eid == 0) {
                                 studentInsert();
-                                fetchStudent();
                               } else {
                                 editStudent();
                               }
@@ -239,6 +300,7 @@ class _StudentScreenState extends State<StudentScreen>
                   DataColumn(label: Text('Email')),
                   DataColumn(label: Text('Password')),
                   DataColumn(label: Text('Contact No.')),
+                  DataColumn(label: Text('Department')),
                   DataColumn(label: Text("Edit")),
                   DataColumn(label: Text("Delete"))
                 ],
@@ -251,6 +313,8 @@ class _StudentScreenState extends State<StudentScreen>
                     DataCell(Text(entry.value['student_email'])),
                     DataCell(Text(entry.value['student_password'])),
                     DataCell(Text(entry.value['student_contact'].toString())),
+                    DataCell(
+                        Text(entry.value['tbl_department']['department_name'])),
                     DataCell(IconButton(
                       icon: const Icon(Icons.edit, color: Colors.green),
                       onPressed: () {
