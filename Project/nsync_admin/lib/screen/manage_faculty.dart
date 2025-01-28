@@ -72,6 +72,19 @@ class _FacultyScreenState extends State<FacultyScreen>
     }
   }
 
+  void reset() {
+    setState(() {
+      eid = 0;
+      selectedDept = null;
+      _facultyController.clear();
+      _facDesignationController.clear();
+      _facEmailController.clear();
+      _facPasswordController.clear();
+      _facContactController.clear();
+      _isFormVisible = false;
+    });
+  }
+
   //select
 
   Future<void> fetchDept() async {
@@ -105,7 +118,7 @@ class _FacultyScreenState extends State<FacultyScreen>
 
   Future<void> editFaculty() async {
     try {
-      await supabase.from('tbl_faulty').update({
+      await supabase.from('tbl_faculty').update({
         'faculty_name': _facultyController.text,
         'faculty_designation': _facDesignationController.text,
         'faculty_email': _facEmailController.text,
@@ -261,24 +274,48 @@ class _FacultyScreenState extends State<FacultyScreen>
                             ))
                           ],
                         ),
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 22, horizontal: 70),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5))),
-                            onPressed: () {
-                              if (eid == 0) {
-                                insFaculty();
-                              } else {
-                                editFaculty();
-                              }
-                            },
-                            child: Text(
-                              "Insert",
-                              style: TextStyle(color: Colors.white),
-                            )),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 22, horizontal: 70),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5))),
+                                onPressed: () {
+                                  if (eid == 0) {
+                                    insFaculty();
+                                  } else {
+                                    editFaculty();
+                                  }
+                                },
+                                child: Text(
+                                  eid == 0 ? "Insert" : "Edit",
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 22, horizontal: 70),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5))),
+                                onPressed: () {
+                                  reset();
+                                },
+                                child: Text(
+                                  "Cancel",
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                          ],
+                        ),
                         SizedBox(
                           height: 50,
                         )
@@ -333,6 +370,8 @@ class _FacultyScreenState extends State<FacultyScreen>
                             entry.value['faculty_contact'];
                         eid = entry.value['faculty_id'];
                         _isFormVisible = true;
+                        selectedDept =
+                            (entry.value['department_id']).toString();
                       });
                     },
                   )),
