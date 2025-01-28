@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_faculty/components/clrsafearea.dart';
 import 'package:nsync_faculty/screen/adminhome.dart';
 
 class Login1 extends StatelessWidget {
@@ -8,7 +9,7 @@ class Login1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: SafeArea(
+        child: ColoredSafeArea(
             child: Container(
           decoration: BoxDecoration(color: Color(0xFF0D0D1B)),
           child: Center(
@@ -72,19 +73,20 @@ class Login1 extends StatelessWidget {
                             ))),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 24,
                       ),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
                             "Forget Password?",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 20,
                       ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
