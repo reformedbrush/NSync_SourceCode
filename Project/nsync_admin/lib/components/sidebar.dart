@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_admin/screen/login.dart';
 
 class SideBar extends StatefulWidget {
   final Function(int) onItemSelected;
@@ -42,12 +43,16 @@ class _SideBarState extends State<SideBar> {
         const Color.fromARGB(255, 43, 43, 43)
       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image.asset('../assets/logowi.png'),
+              ),
               ListView.builder(
                   shrinkWrap: true,
                   itemCount: pages.length,
@@ -69,7 +74,13 @@ class _SideBarState extends State<SideBar> {
               "Logout",
               style: TextStyle(color: Colors.white),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Login1(),
+                  ));
+            },
           ),
         ],
       ),

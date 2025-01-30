@@ -204,6 +204,7 @@ class _FacultyScreenState extends State<FacultyScreen>
       return publicUrl;
     } catch (e) {
       print("ERROR PHOTO UPLOAD: $e");
+      return null;
     }
   }
 
@@ -385,21 +386,6 @@ class _FacultyScreenState extends State<FacultyScreen>
                             SizedBox(
                               width: 30,
                             ),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 22, horizontal: 70),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5))),
-                                onPressed: () {
-                                  reset();
-                                },
-                                child: Text(
-                                  "Cancel",
-                                  style: TextStyle(color: Colors.white),
-                                )),
                           ],
                         ),
                         SizedBox(
