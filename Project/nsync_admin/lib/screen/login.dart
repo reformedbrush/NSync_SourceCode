@@ -27,10 +27,7 @@ class _Login1State extends State<Login1> {
                 SizedBox(
                   height: 120,
                 ),
-                Icon(
-                  Icons.cabin,
-                  size: 100,
-                ),
+                Image.asset('../assets/logo.png'),
                 SizedBox(
                   height: 20,
                 ),

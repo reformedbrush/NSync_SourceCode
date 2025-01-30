@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/insert_form.dart';
 import 'package:nsync_admin/main.dart';
@@ -37,7 +41,9 @@ class _FacultyScreenState extends State<FacultyScreen>
       if (uid.isNotEmpty || uid != "") {
         insFaculty(uid);
       }
-    } catch (e) {}
+    } catch (e) {
+      print("AUTH ERROR: $e");
+    }
   }
 
   Future<void> insFaculty(final id) async {
@@ -47,6 +53,7 @@ class _FacultyScreenState extends State<FacultyScreen>
       String Password = _facPasswordController.text;
       String Contact = _facContactController.text;
       String Designation = _facDesignationController.text;
+      String? url = await photoUpload(id);
       if (selectedDept == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -63,7 +70,8 @@ class _FacultyScreenState extends State<FacultyScreen>
         'faculty_password': Password,
         'faculty_contact': Contact,
         'faculty_designation': Designation,
-        'department_id': selectedDept
+        'department_id': selectedDept,
+        'faculty_photo': url
       });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
@@ -168,6 +176,37 @@ class _FacultyScreenState extends State<FacultyScreen>
     }
   }
 
+  // file upload
+
+  PlatformFile? pickedImage;
+
+  Future<void> handleImagePick() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+    );
+    if (result != null) {
+      setState(() {
+        pickedImage = result.files.first;
+      });
+    }
+  }
+
+  Future<String?> photoUpload(String uid) async {
+    try {
+      final bucketName = 'Faculty';
+      final filePath = "$uid-${pickedImage!.name}";
+      await supabase.storage.from(bucketName).uploadBinary(
+            filePath,
+            pickedImage!.bytes!,
+          );
+      final publicUrl =
+          supabase.storage.from(bucketName).getPublicUrl(filePath);
+      return publicUrl;
+    } catch (e) {
+      print("ERROR PHOTO UPLOAD: $e");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -221,6 +260,39 @@ class _FacultyScreenState extends State<FacultyScreen>
                     width: 700,
                     child: Column(
                       children: [
+                        Row(
+                          children: [
+                            Container(
+                                height: 120,
+                                width: 120,
+                                child: pickedImage == null
+                                    ? GestureDetector(
+                                        onTap: handleImagePick,
+                                        child: Icon(
+                                          Icons.add_a_photo,
+                                          color: Colors.blue,
+                                          size: 50,
+                                        ),
+                                      )
+                                    : GestureDetector(
+                                        onTap: handleImagePick,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          child: pickedImage!.bytes != null
+                                              ? Image.memory(
+                                                  Uint8List.fromList(
+                                                      pickedImage!.bytes!),
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.file(
+                                                  File(pickedImage!.path!),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                        ),
+                                      ))
+                          ],
+                        ),
                         Row(
                           children: [
                             Expanded(
