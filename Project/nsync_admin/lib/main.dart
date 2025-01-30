@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_admin/screen/admin_home.dart';
 import 'package:nsync_admin/screen/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

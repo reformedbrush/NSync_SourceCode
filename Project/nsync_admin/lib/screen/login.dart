@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_admin/main.dart';
 import 'package:nsync_admin/screen/admin_home.dart';
+import 'package:cherry_toast/resources/arrays.dart';
+import 'package:cherry_toast/cherry_toast.dart';
 
 class Login1 extends StatefulWidget {
   const Login1({super.key});
@@ -9,6 +12,31 @@ class Login1 extends StatefulWidget {
 }
 
 class _Login1State extends State<Login1> {
+  final TextEditingController _adminEmailController = TextEditingController();
+  final TextEditingController _adminPassController = TextEditingController();
+  Future<void> signIn() async {
+    try {
+      await supabase.auth.signInWithPassword(
+          password: _adminPassController.text,
+          email: _adminEmailController.text);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AdminHome(),
+          ));
+    } catch (e) {
+      print("Error occur in login:$e");
+      CherryToast.error(
+              description: Text("No user found for that email.",
+                  style: TextStyle(color: Colors.black)),
+              animationType: AnimationType.fromRight,
+              animationDuration: Duration(milliseconds: 1000),
+              autoDismiss: true)
+          .show(context);
+      print('No user found for that email.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +65,8 @@ class _Login1State extends State<Login1> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35.0),
-                  child: TextField(
+                  child: TextFormField(
+                    controller: _adminEmailController,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -53,7 +82,8 @@ class _Login1State extends State<Login1> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35.0),
-                  child: TextField(
+                  child: TextFormField(
+                    controller: _adminPassController,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -86,11 +116,7 @@ class _Login1State extends State<Login1> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 35, vertical: 18)),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AdminHome(),
-                          ));
+                      signIn();
                     },
                     child: Text(
                       "LOGIN",
