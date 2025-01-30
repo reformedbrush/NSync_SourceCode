@@ -27,7 +27,20 @@ class _FacultyScreenState extends State<FacultyScreen>
   final TextEditingController _facDesignationController =
       TextEditingController();
   // insert
-  Future<void> insFaculty() async {
+
+  Future<void> register() async {
+    try {
+      final auth = await supabase.auth.signUp(
+          password: _facPasswordController.text,
+          email: _facEmailController.text);
+      final uid = auth.user!.id;
+      if (uid.isNotEmpty || uid != "") {
+        insFaculty(uid);
+      }
+    } catch (e) {}
+  }
+
+  Future<void> insFaculty(final id) async {
     try {
       String Name = _facultyController.text;
       String Email = _facEmailController.text;
@@ -44,6 +57,7 @@ class _FacultyScreenState extends State<FacultyScreen>
         return;
       }
       await supabase.from('tbl_faculty').insert({
+        'faculty_id': id,
         'faculty_name': Name,
         'faculty_email': Email,
         'faculty_password': Password,
@@ -287,7 +301,7 @@ class _FacultyScreenState extends State<FacultyScreen>
                                             BorderRadius.circular(5))),
                                 onPressed: () {
                                   if (eid == 0) {
-                                    insFaculty();
+                                    register();
                                   } else {
                                     editFaculty();
                                   }
