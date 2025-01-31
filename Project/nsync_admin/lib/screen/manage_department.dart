@@ -107,11 +107,11 @@ class _DepartmentScreenState extends State<DepartmentScreen>
                     });
                   },
                   label: Text(
-                    "Add Department",
+                    _isFormVisible ? "Cancel" : "Add Department",
                     style: TextStyle(color: Colors.white),
                   ),
                   icon: Icon(
-                    Icons.add,
+                    _isFormVisible ? Icons.cancel : Icons.add,
                     color: Colors.white,
                   ),
                 ),

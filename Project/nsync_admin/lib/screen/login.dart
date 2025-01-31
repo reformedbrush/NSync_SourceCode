@@ -14,6 +14,9 @@ class Login1 extends StatefulWidget {
 class _Login1State extends State<Login1> {
   final TextEditingController _adminEmailController = TextEditingController();
   final TextEditingController _adminPassController = TextEditingController();
+
+  //sign in
+
   Future<void> signIn() async {
     try {
       await supabase.auth.signInWithPassword(
@@ -116,7 +119,14 @@ class _Login1State extends State<Login1> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 35, vertical: 18)),
                     onPressed: () {
-                      signIn();
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AdminHome(),
+                          ));
+
+/*                           signIn(); //sign in function
+ */
                     },
                     child: Text(
                       "LOGIN",

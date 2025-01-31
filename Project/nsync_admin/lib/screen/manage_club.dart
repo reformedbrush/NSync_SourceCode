@@ -111,11 +111,11 @@ class _ClubsScreenState extends State<ClubsScreen>
                     });
                   },
                   label: Text(
-                    "Add Club",
+                    _isFormVisible ? "Cancel" : "Add Club",
                     style: TextStyle(color: Colors.white),
                   ),
                   icon: Icon(
-                    Icons.add,
+                    _isFormVisible ? Icons.cancel : Icons.add,
                     color: Colors.white,
                   ),
                 ),

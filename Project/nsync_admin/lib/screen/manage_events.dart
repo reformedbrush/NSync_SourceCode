@@ -132,11 +132,11 @@ class _EventsScreenState extends State<EventsScreen>
                     });
                   },
                   label: Text(
-                    "Add Events",
+                    _isFormVisible ? "Cancel" : "Add Events",
                     style: TextStyle(color: Colors.white),
                   ),
                   icon: Icon(
-                    Icons.add,
+                    _isFormVisible ? Icons.cancel : Icons.add,
                     color: Colors.white,
                   ),
                 ),
