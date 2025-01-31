@@ -57,7 +57,9 @@ class _Login1State extends State<Login1> {
       body: Container(
         child: ColoredSafeArea(
             child: Container(
-          decoration: BoxDecoration(color: Color(0xFF0D0D1B)),
+          decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage("assets/Group 6.png")),
+              color: const Color.fromARGB(255, 12, 12, 11)),
           child: Center(
             child: Column(
               children: [
