@@ -16,14 +16,24 @@ class _Login1State extends State<Login1> {
   // signin
   Future<void> signin() async {
     try {
-      await supabase.auth.signInWithPassword(
+      final auth = await supabase.auth.signInWithPassword(
           password: _facPasswordController.text,
           email: _facEmailController.text);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => FacultyHome(),
-          ));
+      String uid = auth.user!.id;
+      final res = await supabase
+          .from("tbl_faculty")
+          .select()
+          .eq("faculty_id", uid)
+          .limit(1);
+      if (res.length > 0) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FacultyHome(),
+            ));
+      } else {
+        print("Invalid User");
+      }
     } catch (e) {
       print("ERROR LOGIN: $e");
       CherryToast.error(
