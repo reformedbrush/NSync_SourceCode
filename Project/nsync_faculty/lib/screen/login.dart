@@ -1,9 +1,45 @@
+import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:nsync_faculty/components/clrsafearea.dart';
-import 'package:nsync_faculty/screen/adminhome.dart';
+import 'package:nsync_faculty/main.dart';
+import 'package:nsync_faculty/screen/facultyhome.dart';
+import 'package:cherry_toast/cherry_toast.dart';
 
-class Login1 extends StatelessWidget {
+class Login1 extends StatefulWidget {
   const Login1({super.key});
+
+  @override
+  State<Login1> createState() => _Login1State();
+}
+
+class _Login1State extends State<Login1> {
+  // signin
+  Future<void> signin() async {
+    try {
+      await supabase.auth.signInWithPassword(
+          password: _facPasswordController.text,
+          email: _facEmailController.text);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FacultyHome(),
+          ));
+    } catch (e) {
+      print("ERROR LOGIN: $e");
+      CherryToast.error(
+              description: Text("No user found for that email.",
+                  style: TextStyle(color: Colors.black)),
+              animationType: AnimationType.fromRight,
+              animationDuration: Duration(milliseconds: 1000),
+              autoDismiss: true)
+          .show(context);
+      print('No user found for that email.');
+    }
+  }
+
+  TextEditingController _facPasswordController = TextEditingController();
+
+  TextEditingController _facEmailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +87,7 @@ class Login1 extends StatelessWidget {
                         height: 35,
                       ),
                       TextField(
+                        controller: _facEmailController,
                         decoration: InputDecoration(
                           fillColor: Colors.white,
                           filled: true,
@@ -63,6 +100,7 @@ class Login1 extends StatelessWidget {
                         height: 1,
                       ),
                       TextField(
+                        controller: _facPasswordController,
                         decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
@@ -96,14 +134,15 @@ class Login1 extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 145, vertical: 18)),
                           onPressed: () {
-                            Navigator.push(
+                            /*  Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AdminHome(),
-                                ));
+                                  builder: (context) => FacultyHome(),
+                                )); */
+                            signin();
                           },
                           child: Text(
-                            "LOGIN",
+                            "Sign In",
                             style: TextStyle(color: Colors.white),
                           ))
                     ],
