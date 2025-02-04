@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_admin/components/form_validation.dart';
 import 'package:nsync_admin/main.dart';
 import 'package:nsync_admin/screen/admin_home.dart';
 import 'package:cherry_toast/resources/arrays.dart';
@@ -14,6 +15,7 @@ class Login1 extends StatefulWidget {
 class _Login1State extends State<Login1> {
   final TextEditingController _adminEmailController = TextEditingController();
   final TextEditingController _adminPassController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   //sign in
 
@@ -53,86 +55,93 @@ class _Login1State extends State<Login1> {
                 borderRadius: BorderRadius.circular(10)),
             width: 500,
             height: 650,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 120,
-                ),
-                Image.asset('../assets/logo200.png'),
-                SizedBox(
-                  height: 20,
-                ),
-                Text("Hello, Welcome Back!!"),
-                SizedBox(
-                  height: 50,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 35.0),
-                  child: TextFormField(
-                    controller: _adminEmailController,
-                    decoration: InputDecoration(
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 120,
+                  ),
+                  Image.asset('../assets/logo200.png'),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("Hello, Welcome Back!!"),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 35.0),
+                    child: TextFormField(
+                      validator: (value) => FormValidation.validateEmail(value),
+                      controller: _adminEmailController,
+                      decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          hintText: "Enter You ID",
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.blue))),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 35.0),
+                    child: TextFormField(
+                      validator: (value) =>
+                          FormValidation.validatePassword(value),
+                      controller: _adminPassController,
+                      decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        hintText: "Enter You ID",
+                        hintText: "Password",
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue))),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 35.0),
-                  child: TextFormField(
-                    controller: _adminPassController,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: "Password",
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue)),
+                            borderSide: BorderSide(color: Colors.blue)),
+                      ),
+                      obscureText: true,
                     ),
-                    obscureText: true,
                   ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 35.0),
-                      child: Text("Forget Password?"),
-                    )
-                  ],
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF161616),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 35, vertical: 18)),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AdminHome(),
-                          ));
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 35.0),
+                        child: Text("Forget Password?"),
+                      )
+                    ],
+                  ),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF161616),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 35, vertical: 18)),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AdminHome(),
+                            ));
 
-/*                           signIn(); //sign in function
- */
-                    },
-                    child: Text(
-                      "LOGIN",
-                      style: TextStyle(color: Colors.white),
-                    ))
-              ],
+                        /* if (formKey.currentState!.validate()) {
+                          signIn();
+                        }  */ //sign in function
+                      },
+                      child: Text(
+                        "LOGIN",
+                        style: TextStyle(color: Colors.white),
+                      ))
+                ],
+              ),
             ),
           ),
         )),

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:nsync_admin/components/form_validation.dart';
 import 'package:nsync_admin/components/insert_form.dart';
 import 'package:nsync_admin/main.dart';
 
@@ -30,6 +31,8 @@ class _FacultyScreenState extends State<FacultyScreen>
   final TextEditingController _facPasswordController = TextEditingController();
   final TextEditingController _facDesignationController =
       TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
   // insert
 
   Future<void> register() async {
@@ -257,143 +260,163 @@ class _FacultyScreenState extends State<FacultyScreen>
             curve: Curves.easeInOut,
             child: _isFormVisible
                 ? Form(
+                    key: formKey,
                     child: Container(
-                    width: 700,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                                height: 120,
-                                width: 120,
-                                child: pickedImage == null
-                                    ? GestureDetector(
-                                        onTap: handleImagePick,
-                                        child: Icon(
-                                          Icons.add_a_photo,
-                                          color: Colors.blue,
-                                          size: 50,
-                                        ),
-                                      )
-                                    : GestureDetector(
-                                        onTap: handleImagePick,
-                                        child: ClipRRect(
+                      width: 700,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                  height: 120,
+                                  width: 120,
+                                  child: pickedImage == null
+                                      ? GestureDetector(
+                                          onTap: handleImagePick,
+                                          child: Icon(
+                                            Icons.add_a_photo,
+                                            color: Colors.blue,
+                                            size: 50,
+                                          ),
+                                        )
+                                      : GestureDetector(
+                                          onTap: handleImagePick,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: pickedImage!.bytes != null
+                                                ? Image.memory(
+                                                    Uint8List.fromList(
+                                                        pickedImage!.bytes!),
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.file(
+                                                    File(pickedImage!.path!),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                          ),
+                                        ))
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  controller: _facultyController,
+                                  validator: (value) =>
+                                      FormValidation.validateName(value),
+                                  decoration: InputDecoration(
+                                      hintText: "Name",
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.grey)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: const Color.fromARGB(
+                                                  255, 2, 55, 98)))),
+                                ),
+                              )),
+                              Expanded(
+                                  child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: TextFormField(
+                                  controller: _facDesignationController,
+                                  decoration: InputDecoration(
+                                      hintText: "Designation",
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.grey)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 2, 55, 98)))),
+                                ),
+                              )),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: TextFieldStyle(
+                                    label: "Email",
+                                    inputController: _facEmailController),
+                              )),
+                              Expanded(
+                                  child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: TextFieldStyle(
+                                    label: "Password",
+                                    inputController: _facPasswordController),
+                              ))
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: TextFieldStyle(
+                                    label: 'Designation',
+                                    inputController: _facDesignationController),
+                              )),
+                              Expanded(
+                                  child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: DropdownButtonFormField<String>(
+                                    value: selectedDept,
+                                    hint: const Text("Select Department"),
+                                    items: DeptList.map((department) {
+                                      return DropdownMenuItem(
+                                          value: department['department_id']
+                                              .toString(),
+                                          child: Text(
+                                              department['department_name']));
+                                    }).toList(),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectedDept = newValue;
+                                      });
+                                    }),
+                              ))
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blue,
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 22, horizontal: 70),
+                                      shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(100),
-                                          child: pickedImage!.bytes != null
-                                              ? Image.memory(
-                                                  Uint8List.fromList(
-                                                      pickedImage!.bytes!),
-                                                  fit: BoxFit.cover,
-                                                )
-                                              : Image.file(
-                                                  File(pickedImage!.path!),
-                                                  fit: BoxFit.cover,
-                                                ),
-                                        ),
-                                      ))
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFieldStyle(
-                                inputController: _facultyController,
-                                label: "Name",
+                                              BorderRadius.circular(5))),
+                                  onPressed: () {
+                                    if (eid == 0) {
+                                      register();
+                                    } else {
+                                      editFaculty();
+                                    }
+                                  },
+                                  child: Text(
+                                    eid == 0 ? "Insert" : "Edit",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                              SizedBox(
+                                width: 30,
                               ),
-                            )),
-                            Expanded(
-                                child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: TextFieldStyle(
-                                  label: "Contact",
-                                  inputController: _facContactController),
-                            )),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: TextFieldStyle(
-                                  label: "Email",
-                                  inputController: _facEmailController),
-                            )),
-                            Expanded(
-                                child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: TextFieldStyle(
-                                  label: "Password",
-                                  inputController: _facPasswordController),
-                            ))
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: TextFieldStyle(
-                                  label: 'Designation',
-                                  inputController: _facDesignationController),
-                            )),
-                            Expanded(
-                                child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: DropdownButtonFormField<String>(
-                                  value: selectedDept,
-                                  hint: const Text("Select Department"),
-                                  items: DeptList.map((department) {
-                                    return DropdownMenuItem(
-                                        value: department['department_id']
-                                            .toString(),
-                                        child: Text(
-                                            department['department_name']));
-                                  }).toList(),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      selectedDept = newValue;
-                                    });
-                                  }),
-                            ))
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 22, horizontal: 70),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5))),
-                                onPressed: () {
-                                  if (eid == 0) {
-                                    register();
-                                  } else {
-                                    editFaculty();
-                                  }
-                                },
-                                child: Text(
-                                  eid == 0 ? "Insert" : "Edit",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                            SizedBox(
-                              width: 30,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 50,
-                        )
-                      ],
-                    ),
-                  ))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 50,
+                          )
+                        ],
+                      ),
+                    ))
                 : Container(),
           ),
           Container(
