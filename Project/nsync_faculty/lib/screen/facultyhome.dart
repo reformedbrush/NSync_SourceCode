@@ -6,49 +6,35 @@ class FacultyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Faculty App"),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF00664F),
+        title: Text(
+          "Faculty App",
+          style: TextStyle(color: Colors.white),
         ),
-        body: SafeArea(
-            child: Container(
-          decoration: BoxDecoration(color: Color(0xFF00664F)),
-          child: Row(
-            children: [
-              Column(
-                children: [
-                  BottomNavigationBar(
-                      type: BottomNavigationBarType.fixed,
-                      selectedItemColor: Colors.blue,
-                      unselectedItemColor: Colors.grey,
-                      currentIndex: 0,
-                      onTap: (index) {
-                        /* setState(() {
-                      _selectedIndex = index;
-                    });
-                    items[_selectedIndex]; */
-                      },
-                      items: [
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.home),
-                          label: 'Home',
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.work),
-                          label: 'Projects',
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.notifications),
-                          label: 'Notifications',
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.person),
-                          label: 'Profile',
-                        ),
-                      ])
-                ],
-              ),
-            ],
+      ),
+      body: SafeArea(
+          child: Column(
+        children: [
+          Container(
+            height: 280,
+            decoration: BoxDecoration(
+              color: Color(0xFF00664F),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [Image.asset('./assets/globe.png')],
+            ),
           ),
-        )));
+        ],
+      )),
+      bottomNavigationBar: NavigationBar(destinations: [
+        NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+        NavigationDestination(
+            icon: Icon(Icons.calendar_month), label: "Events"),
+        NavigationDestination(icon: Icon(Icons.art_track), label: "Clubs"),
+        NavigationDestination(icon: Icon(Icons.person), label: "Profile")
+      ]),
+    );
   }
 }
