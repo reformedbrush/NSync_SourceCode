@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_student/components/clrsafearea.dart';
-import 'package:nsync_student/screen/adminhome.dart';
+import 'package:nsync_student/screen/student_home.dart';
 
 class Login1 extends StatelessWidget {
   const Login1({super.key});
@@ -99,7 +99,7 @@ class Login1 extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AdminHome(),
+                                  builder: (context) => StudentHome(),
                                 ));
                           },
                           child: Text(
