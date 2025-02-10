@@ -36,18 +36,12 @@ class StudentHome extends StatelessWidget {
               children: [
                 Container(
                   height: 100,
-                  width: 190,
+                  width: 410,
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: const Color.fromARGB(255, 221, 221, 221),
                       borderRadius: BorderRadius.circular(5)),
+                  child: Center(child: Text("Event 1")),
                 ),
-                Container(
-                  height: 100,
-                  width: 190,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(5)),
-                )
               ],
             ),
           ),
@@ -58,47 +52,33 @@ class StudentHome extends StatelessWidget {
               children: [
                 Container(
                   height: 100,
-                  width: 190,
+                  width: 410,
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: const Color.fromARGB(255, 221, 221, 221),
                       borderRadius: BorderRadius.circular(5)),
+                  child: Center(child: Text("Event 2")),
                 ),
-                Container(
-                  height: 100,
-                  width: 190,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(5)),
-                )
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   height: 100,
-                  width: 190,
+                  width: 410,
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: const Color.fromARGB(255, 221, 221, 221),
                       borderRadius: BorderRadius.circular(5)),
+                  child: Center(child: Text("Event 3")),
                 ),
-                Container(
-                  height: 100,
-                  width: 190,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(5)),
-                )
               ],
             ),
           )
         ],
       )),
       bottomNavigationBar: NavigationBar(destinations: [
-        NavigationDestination(icon: Icon(Icons.home), label: "Home"),
         NavigationDestination(
             icon: Icon(Icons.calendar_month), label: "Events"),
         NavigationDestination(icon: Icon(Icons.art_track), label: "Clubs"),
