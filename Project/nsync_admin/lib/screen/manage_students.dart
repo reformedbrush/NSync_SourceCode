@@ -53,7 +53,7 @@ class _StudentScreenState extends State<StudentScreen>
         'student_email': Email,
         'student_password': Password,
         'student_contact': Contact,
-        'department_name': selectedDept
+        'department_id': selectedDept
       });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(

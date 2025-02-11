@@ -360,8 +360,8 @@ class _FacultyScreenState extends State<FacultyScreen>
                                   child: Padding(
                                 padding: EdgeInsets.all(8),
                                 child: TextFieldStyle(
-                                    label: 'Designation',
-                                    inputController: _facDesignationController),
+                                    label: 'Contact',
+                                    inputController: _facContactController),
                               )),
                               Expanded(
                                   child: Padding(

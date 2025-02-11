@@ -19,7 +19,6 @@ class _SideBarState extends State<SideBar> {
     "Manage Students",
     "Publish NewsLetters",
     "Review Complaints",
-    "Settings"
   ];
 
   final List<IconData> icons = [
@@ -31,7 +30,6 @@ class _SideBarState extends State<SideBar> {
     Icons.person_2,
     Icons.newspaper, // Icon for "Newsletter"
     Icons.reviews,
-    Icons.settings, // Icon for "Manage Faculty"
   ];
 
   @override
