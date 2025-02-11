@@ -36,7 +36,7 @@ class StudentHome extends StatelessWidget {
               children: [
                 Container(
                   height: 100,
-                  width: 410,
+                  width: 395,
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 221, 221, 221),
                       borderRadius: BorderRadius.circular(5)),
@@ -52,7 +52,7 @@ class StudentHome extends StatelessWidget {
               children: [
                 Container(
                   height: 100,
-                  width: 410,
+                  width: 395,
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 221, 221, 221),
                       borderRadius: BorderRadius.circular(5)),
@@ -67,7 +67,7 @@ class StudentHome extends StatelessWidget {
               children: [
                 Container(
                   height: 100,
-                  width: 410,
+                  width: 395,
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 221, 221, 221),
                       borderRadius: BorderRadius.circular(5)),
