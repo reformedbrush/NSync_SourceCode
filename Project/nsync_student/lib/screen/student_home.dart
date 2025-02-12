@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_student/components/appbar.dart';
 
 class StudentHome extends StatelessWidget {
   const StudentHome({super.key});
@@ -6,13 +7,6 @@ class StudentHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF00664F),
-        title: Text(
-          "Faculty App",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
       body: SafeArea(
           child: Column(
         children: [

@@ -126,15 +126,15 @@ class _Login1State extends State<Login1> {
                           padding: EdgeInsets.symmetric(
                               horizontal: 35, vertical: 18)),
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        /*  Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => AdminHome(),
-                            ));
+                            )); */
 
-                        /* if (formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate()) {
                           signIn();
-                        }  */ //sign in function
+                        } //sign in function
                       },
                       child: Text(
                         "LOGIN",
