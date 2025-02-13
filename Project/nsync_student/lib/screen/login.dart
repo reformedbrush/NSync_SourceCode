@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nsync_student/components/clrsafearea.dart';
-import 'package:nsync_student/screen/homepg.dart';
+import 'package:nsync_student/screen/registernow.dart';
 
 class Login1 extends StatefulWidget {
   const Login1({super.key});
@@ -104,25 +103,35 @@ class _Login1State extends State<Login1> {
                     padding: const EdgeInsets.only(top: 10),
                     child: Text("Forget Password?"),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Get new",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        )),
+                  )
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Text("Do not have an account?"),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: TextButton(
-                        child: Text(
-                          "Register Now!",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.black),
-                        ),
-                        onPressed: () {},
-                      ))
+                  Text("Do not have an account?"),
+                  TextButton(
+                    child: Text(
+                      "Register Now!",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Registernow()));
+                    },
+                  )
                 ],
               )
             ],
