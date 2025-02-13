@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_student/screen/homepg.dart';
 import 'package:nsync_student/screen/registernow.dart';
 
 class Login1 extends StatefulWidget {
@@ -12,6 +13,7 @@ class _Login1State extends State<Login1> {
   //controllers
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _PasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +92,12 @@ class _Login1State extends State<Login1> {
                             borderRadius: BorderRadius.circular(10)),
                         padding: EdgeInsets.symmetric(
                             horizontal: 150, vertical: 18)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => StudentHome()));
+                    },
                     child: Text(
                       "Login",
                       style: TextStyle(color: Colors.white, fontSize: 25),
@@ -101,7 +108,7 @@ class _Login1State extends State<Login1> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
-                    child: Text("Forget Password?"),
+                    child: Text("Forgot Password?"),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10),

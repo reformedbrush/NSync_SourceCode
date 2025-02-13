@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_student/screen/eventspg.dart';
+import 'package:nsync_student/screen/myprofile.dart';
 import 'package:nsync_student/screen/student_club.dart';
 
 class StudentHome extends StatefulWidget {
@@ -12,10 +13,7 @@ class StudentHome extends StatefulWidget {
 class _StudentHomeState extends State<StudentHome> {
   int myIndex = 0;
 
-  final List<Widget> pages = [
-    StuEvents(),
-    StuClub(),
-  ];
+  final List<Widget> pages = [StuEvents(), StuClub(), MyProfile()];
 
   @override
   Widget build(BuildContext context) {
