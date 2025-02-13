@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_student/components/clrsafearea.dart';
-import 'package:nsync_student/screen/student_home.dart';
+import 'package:nsync_student/screen/homepg.dart';
 
 class Login1 extends StatelessWidget {
   const Login1({super.key});
