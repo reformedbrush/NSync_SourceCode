@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nsync_student/screen/homepg.dart';
+import 'package:nsync_student/screen/login.dart';
 
 /* import 'package:nsync_student/screen/login.dart';
  */
@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: StudentHome(),
+      home: Login1(),
     );
   }
 }

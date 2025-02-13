@@ -2,118 +2,131 @@ import 'package:flutter/material.dart';
 import 'package:nsync_student/components/clrsafearea.dart';
 import 'package:nsync_student/screen/homepg.dart';
 
-class Login1 extends StatelessWidget {
+class Login1 extends StatefulWidget {
   const Login1({super.key});
 
   @override
+  State<Login1> createState() => _Login1State();
+}
+
+class _Login1State extends State<Login1> {
+  //controllers
+  final TextEditingController _loginController = TextEditingController();
+  final TextEditingController _PasswordController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: ColoredSafeArea(
-            child: Container(
-          decoration: BoxDecoration(color: Color(0xFF0D0D1B)),
-          child: Center(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 180,
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 60,
+              ),
+              Container(
+                height: 360,
+                child: Image.asset("./assets/Brazuca Browsing.png"),
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24, right: 24),
+                    child: Container(
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                            fontSize: 50, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Container(
+                  child: Padding(
+                padding: const EdgeInsets.only(left: 24.0, right: 24),
+                child: TextFormField(
+                  controller: _loginController,
+                  decoration: InputDecoration(
+                      hintText: "Login",
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue))),
                 ),
-                Container(
-                  width: 340,
-                  height: 500,
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Image.asset('./assets/logo.png'),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Center(
-                        child: Text(
-                          "Sign in to your",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Center(
-                        child: Text(
-                          "Account",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 35,
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          hintText: 'E-mail ID',
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white)),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 1,
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            hintText: 'Password',
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Colors.white,
-                            ))),
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            "Forget Password?",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF1D61E7),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 145, vertical: 18)),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => StudentHome(),
-                                ));
-                          },
-                          child: Text(
-                            "LOGIN",
-                            style: TextStyle(color: Colors.white),
-                          ))
-                    ],
+              )),
+              SizedBox(
+                height: 16,
+              ),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 24.0, right: 24),
+                  child: TextFormField(
+                    controller: _PasswordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        hintText: "Password",
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue)),
+                        suffixIcon: Icon(Icons.remove_red_eye)),
                   ),
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Container(
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF161616),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 150, vertical: 18)),
+                    onPressed: () {},
+                    child: Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    )),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text("Forget Password?"),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text("Do not have an account?"),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: TextButton(
+                        child: Text(
+                          "Register Now!",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
+                        onPressed: () {},
+                      ))
+                ],
+              )
+            ],
           ),
-        )),
-      ),
-    );
+        ));
   }
 }
