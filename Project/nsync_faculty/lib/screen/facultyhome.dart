@@ -13,90 +13,88 @@ class FacultyHome extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: SafeArea(
-          child: Column(
-        children: [
-          Container(
-            height: 280,
-            decoration: BoxDecoration(
-              color: Color(0xFF00664F),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 280,
+              decoration: BoxDecoration(
+                color: Color(0xFF00664F),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [Image.asset('./assets/globe.png')],
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [Image.asset('./assets/globe.png')],
+            SizedBox(
+              height: 10,
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 100,
-                  width: 190,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(5)),
-                ),
-                Container(
-                  height: 100,
-                  width: 190,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(5)),
-                )
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(5)),
+                  ),
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(5)),
+                  )
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 100,
-                  width: 190,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(5)),
-                ),
-                Container(
-                  height: 100,
-                  width: 190,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(5)),
-                )
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(5)),
+                  ),
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(5)),
+                  )
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 100,
-                  width: 190,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(5)),
-                ),
-                Container(
-                  height: 100,
-                  width: 190,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(5)),
-                )
-              ],
-            ),
-          )
-        ],
-      )),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(5)),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(5)),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
       bottomNavigationBar: NavigationBar(destinations: [
         NavigationDestination(icon: Icon(Icons.home), label: "Home"),
         NavigationDestination(

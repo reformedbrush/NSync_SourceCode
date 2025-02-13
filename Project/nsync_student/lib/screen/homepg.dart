@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nsync_student/components/appbar.dart';
 import 'package:nsync_student/screen/eventspg.dart';
 import 'package:nsync_student/screen/student_club.dart';
 
