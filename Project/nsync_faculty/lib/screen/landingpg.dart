@@ -12,18 +12,18 @@ class LandingScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                    colors: [const Color(0xFF1F4037), Color(0xFF99F2C8)],
-                    begin: Alignment.centerRight,
-                    end: Alignment.centerLeft)),
+                gradient: LinearGradient(colors: [
+                  const Color.fromARGB(255, 255, 192, 18),
+                  Color.fromARGB(255, 109, 88, 248)
+                ], begin: Alignment.centerRight, end: Alignment.centerLeft)),
             width: 1250,
             height: 90,
             child: Padding(
               padding: const EdgeInsets.only(top: 27, left: 20),
               child: Text(
-                "Welcome Admin",
+                "Welcome Faculty",
                 style: TextStyle(
-                    color: Color(0xFF1F4037),
+                    color: Color.fromARGB(255, 255, 255, 255),
                     fontSize: 25,
                     fontWeight: FontWeight.w900),
               ),
@@ -46,7 +46,7 @@ class LandingScreen extends StatelessWidget {
                     ),
                     width: 700,
                     height: 500,
-                    child: Text("Events Details"),
+                    child: Center(child: Text("Events Details")),
                   ),
                 ),
                 Container(
@@ -56,19 +56,38 @@ class LandingScreen extends StatelessWidget {
                   ),
                   height: 500,
                   width: 530,
-                  child: Text("Other"),
+                  child: Center(child: Text("Other")),
                 )
               ],
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color(0xffeeeeeee),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xffeeeeeee),
+                  ),
+                  height: 500,
+                  width: 530,
+                  child: Center(child: Text("data")),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xffeeeeeee),
+                  ),
+                  height: 500,
+                  width: 700,
+                  child: Center(child: Text("data")),
+                ),
+              ],
             ),
-            height: 500,
-            width: 500,
-            child: Text("data"),
           )
         ],
       ),

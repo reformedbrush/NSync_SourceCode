@@ -10,11 +10,9 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> {
-  final List<String> pages = [
-    "Dashboard",
-  ];
+  final List<String> pages = ["Dashboard", "Manage Events", "Manage Students"];
 
-  final List<IconData> icons = [Icons.abc];
+  final List<IconData> icons = [Icons.home, Icons.event, Icons.person];
 
   @override
   Widget build(BuildContext context) {
