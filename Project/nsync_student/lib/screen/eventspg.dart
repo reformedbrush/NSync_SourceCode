@@ -12,132 +12,99 @@ class _StuEventsState extends State<StuEvents> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text("NSync", style: TextStyle(fontWeight: FontWeight.bold)),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Find events ",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Search location",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Text("Latest Events",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
+            EventCard(
+              date: "DEC 28",
+              title: "Black Laughs Matter Virtual Comedy Show live",
+              location: "By Funcheap",
+              distance: "10.6 km away",
+              price: "\$30",
+            ),
+            EventCard(
+              date: "DEC 28",
+              title: "Save A Seat For Sam Christmas Special",
+              location: "By Funcheap",
+              distance: "8.2 km away",
+              price: "Free",
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class EventCard extends StatelessWidget {
+  final String date, title, location, distance, price;
+  const EventCard({
+    required this.date,
+    required this.title,
+    required this.location,
+    required this.distance,
+    required this.price,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
           children: [
             Container(
-                height: 350,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color.fromARGB(255, 55, 135, 246)),
-                child: Image.asset("./assets/Miroodles.png")),
-            SizedBox(
-              height: 20,
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.orange,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(date, style: TextStyle(fontWeight: FontWeight.bold)),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color.fromARGB(255, 245, 244, 244)),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                    leading: Icon(Icons.abc_outlined),
-                    title: Text(
-                      "Event 1",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text("@DJ hall"),
-                    trailing: Icon(Icons.touch_app),
-                  ),
-                ),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(location, style: TextStyle(color: Colors.grey)),
+                  Text(distance, style: TextStyle(color: Colors.grey)),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 245, 244, 244)),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                    leading: Icon(Icons.abc_outlined),
-                    title: Text(
-                      "Event 1",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text("@DJ hall"),
-                    trailing: Icon(Icons.touch_app),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 245, 244, 244)),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                    leading: Icon(Icons.abc_outlined),
-                    title: Text(
-                      "Event 1",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text("@DJ hall"),
-                    trailing: Icon(Icons.touch_app),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 245, 244, 244)),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                    leading: Icon(Icons.abc_outlined),
-                    title: Text(
-                      "Event 1",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text("@DJ hall"),
-                    trailing: Icon(Icons.touch_app),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 245, 244, 244)),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                    leading: Icon(Icons.abc_outlined),
-                    title: Text(
-                      "Event 1",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text("@DJ hall"),
-                    trailing: Icon(Icons.touch_app),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 245, 244, 244)),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                    leading: Icon(Icons.abc_outlined),
-                    title: Text(
-                      "Event 1",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text("@DJ hall"),
-                    trailing: Icon(Icons.touch_app),
-                  ),
-                ),
-              ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text(price),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
             )
           ],
         ),
