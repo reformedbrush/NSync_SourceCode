@@ -13,6 +13,8 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
     with SingleTickerProviderStateMixin {
   bool _isFormVisible = false;
 
+  List<Map<String, dynamic>> newsList = [];
+
   //controller
 
   final TextEditingController _newsTitleController = TextEditingController();
@@ -47,6 +49,25 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
     } catch (e) {
       print("ERROR INSERTING DATA: $e");
     }
+  }
+
+  // select
+
+  Future<void> fetchNews() async {
+    try {
+      final respone = await supabase.from('tbl_newsletter').select();
+      setState(() {
+        newsList = respone;
+      });
+    } catch (e) {
+      print("ERROR FETCHING NEWSLETTER DATA: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchNews();
   }
 
   @override
@@ -162,6 +183,45 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
                 "Published Newsletters",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
+            ),
+          ),
+          Container(
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: DataTable(
+                  columns: [
+                    DataColumn(label: Text("Sl.No")),
+                    DataColumn(label: Text("Title")),
+                    DataColumn(label: Text("Content")),
+                    DataColumn(label: Text("Author")),
+/*                     DataColumn(label: Text("Status")),
+ */
+                    DataColumn(label: Text("Edit")),
+                    DataColumn(label: Text("Delete"))
+                  ],
+                  rows: newsList.asMap().entries.map((entry) {
+                    print(entry.value);
+                    return DataRow(cells: [
+                      DataCell(Text((entry.key).toString())),
+                      DataCell(Text(entry.value['newsletter_title'])),
+                      DataCell(Text(entry.value['newsletter_content'])),
+                      DataCell(Text(entry.value['newsletter_author'])),
+                      DataCell(IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.green,
+                        ),
+                        onPressed: () {},
+                      )),
+                      DataCell(IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {},
+                      ))
+                    ]);
+                  }).toList()),
             ),
           )
         ],
