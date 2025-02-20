@@ -125,6 +125,11 @@ class _Login1State extends State<Login1> {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.blue),
                                 ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors
+                                          .grey), // Red border on validation error
+                                ),
                               ),
                             ),
                             const SizedBox(height: 15),
@@ -140,6 +145,11 @@ class _Login1State extends State<Login1> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.blue),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors
+                                          .grey), // Red border on validation error
                                 ),
                               ),
                             ),
