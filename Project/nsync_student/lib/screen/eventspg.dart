@@ -18,7 +18,8 @@ class _StuEventsState extends State<StuEvents> {
             Container(
                 height: 350,
                 decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 255, 255, 255)),
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color.fromARGB(255, 55, 135, 246)),
                 child: Image.asset("./assets/Miroodles.png")),
             SizedBox(
               height: 20,
@@ -27,6 +28,7 @@ class _StuEventsState extends State<StuEvents> {
               padding: const EdgeInsets.all(12.0),
               child: Container(
                 decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
                     color: const Color.fromARGB(255, 245, 244, 244)),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
