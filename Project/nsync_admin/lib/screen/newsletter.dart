@@ -30,13 +30,13 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
       String Content = _newsContentController.text;
 
       await supabase.from('tbl_newsletter').insert({
-        'news_title': Title,
-        'news_author': Author,
-        'news_content': Content,
+        'newsletter_title': Title,
+        'newsletter_author': Author,
+        'newsletter_content': Content,
       });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
-          "Faculty Data Inserted Sucessfully",
+          "NewsLetter Inserted Sucessfully",
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.green,
@@ -115,11 +115,19 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
                             children: [
                               Expanded(
                                   child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFieldStyle(
-                                    label: "Content",
-                                    inputController: _newsContentController),
-                              ))
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: TextField(
+                                        controller: _newsContentController,
+                                        decoration: InputDecoration(
+                                            hintText: "Content",
+                                            enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey)),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey))),
+                                        maxLines: 5,
+                                      )))
                             ],
                           ),
                           Row(
