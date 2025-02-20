@@ -29,7 +29,7 @@ class _Login1State extends State<Login1> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => FacultyHome(),
+              builder: (context) => Facultyhome(),
             ));
       } else {
         print("Invalid User");
