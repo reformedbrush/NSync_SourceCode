@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nsync_admin/screen/admin_home.dart';
 import 'package:nsync_admin/screen/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -18,6 +19,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(debugShowCheckedModeBanner: false, home: Login1());
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false, home: AdminHome());
   }
 }

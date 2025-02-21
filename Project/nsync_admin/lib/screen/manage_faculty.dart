@@ -227,7 +227,6 @@ class _FacultyScreenState extends State<FacultyScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Manage Faculty"),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton.icon(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/sidebar.dart';
 import 'package:nsync_admin/components/appbar.dart';
+import 'package:nsync_admin/screen/assign_class.dart';
 import 'package:nsync_admin/screen/complaints.dart';
 import 'package:nsync_admin/screen/landing_page.dart';
 import 'package:nsync_admin/screen/manage_club.dart';
@@ -27,6 +28,7 @@ class _AdminHomeState extends State<AdminHome> {
     DepartmentScreen(),
     ClubsScreen(),
     StudentScreen(),
+    AssignClass(),
     NewsLetterScreen(),
     ComplaintsScreen(),
     const Center(child: Text('Settings Content')),

@@ -17,6 +17,7 @@ class _SideBarState extends State<SideBar> {
     "Manage Departments",
     "Manage Clubs",
     "Manage Students",
+    "Assign Class",
     "Publish NewsLetters",
     "Review Complaints",
   ];
@@ -28,6 +29,7 @@ class _SideBarState extends State<SideBar> {
     Icons.school, // Icon for "Manage Departments"
     Icons.school, // Icon for "Manage Clubs"
     Icons.person_2,
+    Icons.school,
     Icons.newspaper, // Icon for "Newsletter"
     Icons.reviews,
   ];
