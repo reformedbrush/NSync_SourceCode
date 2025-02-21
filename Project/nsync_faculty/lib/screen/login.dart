@@ -105,32 +105,33 @@ class _Login1State extends State<Login1> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Login",
+                              "Faculty Login",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 40,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            const SizedBox(height: 15),
+                            const SizedBox(height: 25),
                             TextFormField(
                               validator: (value) =>
                                   FormValidation.validateEmail(value),
                               controller: _facEmailController,
                               decoration: const InputDecoration(
-                                hintText: "Login",
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors
-                                          .grey), // Red border on validation error
-                                ),
-                              ),
+                                  hintText: "Login",
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.blue),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                    // Red border on validation error
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue))),
                             ),
                             const SizedBox(height: 15),
                             TextFormField(
@@ -139,19 +140,21 @@ class _Login1State extends State<Login1> {
                               controller: _facPasswordController,
                               obscureText: true,
                               decoration: const InputDecoration(
-                                hintText: "Password",
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors
-                                          .grey), // Red border on validation error
-                                ),
-                              ),
+                                  hintText: "Password",
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.blue),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors
+                                            .grey), // Red border on validation error
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue))),
                             ),
                             const SizedBox(height: 15),
                             ElevatedButton(
