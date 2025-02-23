@@ -14,7 +14,7 @@ class Registernow extends StatelessWidget {
             SizedBox(
               height: 100,
             ),
-            Container(
+            SizedBox(
               height: 360,
               child: Image.asset("./assets/regrobo.png"),
             ),

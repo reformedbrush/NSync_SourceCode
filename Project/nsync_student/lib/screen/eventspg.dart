@@ -67,6 +67,7 @@ class _StuEventsState extends State<StuEvents> {
 class EventCard extends StatelessWidget {
   final String date, title, location, distance, price;
   const EventCard({
+    super.key,
     required this.date,
     required this.title,
     required this.location,
@@ -103,8 +104,8 @@ class EventCard extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {},
-              child: Text(price),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+              child: Text(price),
             )
           ],
         ),

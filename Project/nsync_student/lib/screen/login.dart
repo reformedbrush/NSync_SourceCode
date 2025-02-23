@@ -24,7 +24,7 @@ class _Login1State extends State<Login1> {
               SizedBox(
                 height: 60,
               ),
-              Container(
+              SizedBox(
                 height: 360,
                 child: Image.asset("./assets/Brazuca Browsing.png"),
               ),

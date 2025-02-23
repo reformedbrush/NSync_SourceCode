@@ -85,7 +85,7 @@ class _AssignClass1State extends State<AssignClass1>
             curve: Curves.easeInOut,
             child: !_isFormVisible
                 ? Form(key: formKey, child: Container())
-                : Container(
+                : SizedBox(
                     width: 700,
                     child: Column(
                       children: [

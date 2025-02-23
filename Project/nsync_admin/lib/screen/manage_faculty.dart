@@ -260,13 +260,13 @@ class _FacultyScreenState extends State<FacultyScreen>
             child: _isFormVisible
                 ? Form(
                     key: formKey,
-                    child: Container(
+                    child: SizedBox(
                       width: 700,
                       child: Column(
                         children: [
                           Row(
                             children: [
-                              Container(
+                              SizedBox(
                                   height: 120,
                                   width: 120,
                                   child: pickedImage == null

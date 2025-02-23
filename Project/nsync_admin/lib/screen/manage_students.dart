@@ -31,7 +31,7 @@ class _StudentScreenState extends State<StudentScreen>
   Future<void> studentInsert() async {
     try {
       String Name = _studentController.text;
-      String Admission_No = _stAdmnoController.text;
+      String admissionNo = _stAdmnoController.text;
       String Email = _stEmailController.text;
       String Password = _stPasswordController.text;
       String Contact = _stContactController.text;
@@ -49,7 +49,7 @@ class _StudentScreenState extends State<StudentScreen>
 
       await supabase.from('tbl_student').insert({
         'student_name': Name,
-        'student_admno': Admission_No,
+        'student_admno': admissionNo,
         'student_email': Email,
         'student_password': Password,
         'student_contact': Contact,
@@ -133,7 +133,7 @@ class _StudentScreenState extends State<StudentScreen>
         });
       }
     } catch (e) {
-      print("ERROR FETCHING DISTRICT: $e");
+      print("ERROR FETCHING DEPT: $e");
     }
   }
 
@@ -186,7 +186,7 @@ class _StudentScreenState extends State<StudentScreen>
             curve: Curves.easeInOut,
             child: _isFormVisible
                 ? Form(
-                    child: Container(
+                    child: SizedBox(
                     width: 700,
                     child: Column(
                       children: [

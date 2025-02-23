@@ -124,7 +124,7 @@ class _DepartmentScreenState extends State<DepartmentScreen>
             curve: Curves.easeInOut,
             child: _isFormVisible
                 ? Form(
-                    child: Container(
+                    child: SizedBox(
                     width: 700,
                     child: Column(
                       children: [

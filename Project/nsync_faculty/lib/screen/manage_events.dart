@@ -10,6 +10,6 @@ class ManageEvents extends StatefulWidget {
 class _ManageEventsState extends State<ManageEvents> {
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return Scaffold();
   }
 }
