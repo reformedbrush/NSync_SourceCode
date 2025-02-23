@@ -28,7 +28,7 @@ class _AdminHomeState extends State<AdminHome> {
     DepartmentScreen(),
     ClubsScreen(),
     StudentScreen(),
-    AssignClass(),
+    AssignClass1(),
     NewsLetterScreen(),
     ComplaintsScreen(),
     const Center(child: Text('Settings Content')),

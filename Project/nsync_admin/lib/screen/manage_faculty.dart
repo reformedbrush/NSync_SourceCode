@@ -121,7 +121,7 @@ class _FacultyScreenState extends State<FacultyScreen>
         });
       }
     } catch (e) {
-      print("ERROR FETCHING DISTRICT: $e");
+      print("ERROR FETCHING DEPARTMENT: $e");
     }
   }
 
