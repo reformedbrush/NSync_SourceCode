@@ -26,6 +26,74 @@ class _ManageStudentsState extends State<ManageStudents>
   List<Map<String, dynamic>> StudList = [];
   List<Map<String, dynamic>> DeptList = [];
 
+  //register
+
+  Future<void> Register() async {
+    try {
+      final auth = await supabase.auth.signUp(
+          password: _stPasswordController.text, email: _stEmailController.text);
+      final uid = auth.user!.id;
+      if (uid.isNotEmpty || uid != "") {
+        studentInsert(uid);
+      }
+    } catch (e) {
+      print("AUTH ERROR: $e");
+    }
+  }
+
+  // insert
+
+  Future<void> studentInsert(final id) async {
+    try {
+      String Name = _studentController.text;
+      String Admission_No = _stAdmnoController.text;
+      String Email = _stEmailController.text;
+      String Password = _stPasswordController.text;
+      String Phone = _stContactController.text;
+      String Academic_Year = _stAcdYearController.text;
+
+      if (selectedDept == null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Please Select A Department",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ));
+        return;
+      }
+      await supabase.from('tbl_student').insert({
+        'student_id': id,
+        'student_name': Name,
+        'student_admno': Admission_No,
+        'student_email': Email,
+        'student_password': Password,
+        'student_contact': Phone,
+        'department_id': selectedDept,
+        'academic_year': Academic_Year
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          "Student Data Inserted Sucessfully",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+      ));
+
+      _studentController.clear();
+      _stAdmnoController.clear();
+      _stEmailController.clear();
+      _stPasswordController.clear();
+      _stContactController.clear();
+      _stAcdYearController.clear();
+      setState(() {
+        selectedDept = null;
+      });
+    } catch (e) {
+      print("ERROR INSERTING DATA: $e");
+    }
+  }
+
   //select
 
   Future<void> fetchDept() async {
@@ -107,7 +175,7 @@ class _ManageStudentsState extends State<ManageStudents>
                                     validator: (value) =>
                                         FormValidation.validateName(value),
                                     decoration: InputDecoration(
-                                        hintText: "Student Name",
+                                        hintText: "Name",
                                         enabledBorder: OutlineInputBorder(
                                             borderSide:
                                                 BorderSide(color: Colors.grey)),
@@ -128,7 +196,7 @@ class _ManageStudentsState extends State<ManageStudents>
                                   child: TextFormField(
                                     controller: _stAdmnoController,
                                     decoration: InputDecoration(
-                                        hintText: "Admission Number",
+                                        hintText: "Admission_No",
                                         enabledBorder: OutlineInputBorder(
                                             borderSide:
                                                 BorderSide(color: Colors.grey)),
@@ -173,7 +241,7 @@ class _ManageStudentsState extends State<ManageStudents>
                                           FormValidation.validatePassword(
                                               value),
                                       decoration: InputDecoration(
-                                          hintText: "Assign Password",
+                                          hintText: "Password",
                                           enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: Colors.grey)),
@@ -202,7 +270,7 @@ class _ManageStudentsState extends State<ManageStudents>
                                         FormValidation.validateContact(value),
                                     controller: _stContactController,
                                     decoration: InputDecoration(
-                                        hintText: "Contact Number",
+                                        hintText: "Phone",
                                         enabledBorder: OutlineInputBorder(
                                             borderSide:
                                                 BorderSide(color: Colors.grey)),
@@ -223,7 +291,7 @@ class _ManageStudentsState extends State<ManageStudents>
                                   child: TextFormField(
                                     controller: _stAcdYearController,
                                     decoration: InputDecoration(
-                                        hintText: "Academic Year",
+                                        hintText: "Academic_Year",
                                         enabledBorder: OutlineInputBorder(
                                             borderSide:
                                                 BorderSide(color: Colors.grey)),
@@ -275,6 +343,7 @@ class _ManageStudentsState extends State<ManageStudents>
                                         borderRadius:
                                             BorderRadius.circular(5))),
                                 onPressed: () {
+                                  Register();
                                   /* if (eid == 0) {
                                     studentInsert();
                                   } else {
