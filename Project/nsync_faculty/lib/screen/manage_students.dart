@@ -80,6 +80,8 @@ class _ManageStudentsState extends State<ManageStudents>
         backgroundColor: Colors.green,
       ));
 
+      fetchStudent();
+
       _studentController.clear();
       _stAdmnoController.clear();
       _stEmailController.clear();
@@ -109,11 +111,35 @@ class _ManageStudentsState extends State<ManageStudents>
     }
   }
 
+  Future<void> fetchStudent() async {
+    try {
+      final response =
+          await supabase.from('tbl_student').select('*,tbl_department(*)');
+      setState(() {
+        StudList = response;
+      });
+    } catch (e) {
+      print("ERROR FETCHING: $e");
+    }
+  }
+
+  // delete
+
+  Future<void> deltStudent(String did) async {
+    try {
+      await supabase.from('tbl_student').delete().eq('student_id', did);
+      fetchStudent();
+    } catch (e) {
+      print("ERROR DELETING: $e");
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     fetchDept();
+    fetchStudent();
   }
 
   @override
@@ -344,11 +370,6 @@ class _ManageStudentsState extends State<ManageStudents>
                                             BorderRadius.circular(5))),
                                 onPressed: () {
                                   Register();
-                                  /* if (eid == 0) {
-                                    studentInsert();
-                                  } else {
-                                    editStudent();
-                                  } */
                                 },
                                 child: Text(
                                   "Insert",
@@ -383,7 +404,6 @@ class _ManageStudentsState extends State<ManageStudents>
                       DataColumn(label: Text('Department')),
                       /*                   DataColumn(label: Text('Photo')),
          */
-                      DataColumn(label: Text("Edit")),
                       DataColumn(label: Text("Delete"))
                     ],
                     rows: StudList.asMap().entries.map((entry) {
@@ -399,31 +419,10 @@ class _ManageStudentsState extends State<ManageStudents>
                         DataCell(Text(
                             entry.value['tbl_department']['department_name'])),
                         DataCell(IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.green),
-                          onPressed: () {
-                            setState(() {
-                              _studentController.text =
-                                  entry.value['student_name'];
-                              _stAdmnoController.text =
-                                  entry.value['student_admno'];
-                              _stEmailController.text =
-                                  entry.value['student_email'];
-                              _stPasswordController.text =
-                                  entry.value['student_password'];
-                              _stContactController.text =
-                                  entry.value['student_contact'];
-                              /*                           eid = entry.value['student_id'];
-         */
-                              _isFormVisible = true;
-                            });
-                          },
-                        )),
-                        DataCell(IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
                           onPressed: () {
                             //delete function
-                            /*                         deltStudent(entry.value['student_id'].toString());
-         */
+                            deltStudent(entry.value['student_id'].toString());
                           },
                         ))
                       ]);
