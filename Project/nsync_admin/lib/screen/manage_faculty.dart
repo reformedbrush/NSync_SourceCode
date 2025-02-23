@@ -225,7 +225,7 @@ class _FacultyScreenState extends State<FacultyScreen>
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -243,7 +243,7 @@ class _FacultyScreenState extends State<FacultyScreen>
                     });
                   },
                   label: Text(
-                    _isFormVisible ? "Cancel" : "Add Student",
+                    _isFormVisible ? "Cancel" : "Add Faculty",
                     style: TextStyle(color: Colors.white),
                   ),
                   icon: Icon(

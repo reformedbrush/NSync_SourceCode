@@ -34,6 +34,7 @@ class _DepartmentScreenState extends State<DepartmentScreen>
         backgroundColor: Colors.green,
       ));
       fetchDepartment();
+      _deptController.clear();
     } catch (e) {
       print("ERROR ADDING DATA");
     }
@@ -171,6 +172,7 @@ class _DepartmentScreenState extends State<DepartmentScreen>
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
             ),
           ),
+          SizedBox(height: 20),
           Container(
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 249, 249, 249),
@@ -178,7 +180,7 @@ class _DepartmentScreenState extends State<DepartmentScreen>
               borderRadius: BorderRadius.circular(6),
             ),
             height: 500,
-            width: 400,
+            width: 700,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: DataTable(

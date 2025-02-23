@@ -24,7 +24,7 @@ class _AssignClass1State extends State<AssignClass1>
 
   Future<void> fetchDept() async {
     try {
-      final response = await supabase.from('tbl_assign').select();
+      final response = await supabase.from('tbl_department').select();
       if (response.isNotEmpty) {
         setState(() {
           DeptList = response;
@@ -36,13 +36,20 @@ class _AssignClass1State extends State<AssignClass1>
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchDept();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(18),
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
                 padding: EdgeInsets.all(10),
@@ -74,7 +81,7 @@ class _AssignClass1State extends State<AssignClass1>
           AnimatedSize(
             duration: _animationDuration,
             curve: Curves.easeInOut,
-            child: _isFormVisible
+            child: !_isFormVisible
                 ? Form(key: formKey, child: Container())
                 : Container(
                     width: 700,
@@ -86,6 +93,25 @@ class _AssignClass1State extends State<AssignClass1>
                                 child: Padding(
                               padding: EdgeInsets.all(8),
                               child: DropdownButtonFormField<String>(
+                                  value: selectedDept,
+                                  hint: const Text("Select Department"),
+                                  items: DeptList.map((department) {
+                                    return DropdownMenuItem(
+                                        value: department['department_id']
+                                            .toString(),
+                                        child: Text(
+                                            department['department_name']));
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedDept = newValue;
+                                    });
+                                  }),
+                            )),
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: DropdownButtonFormField(
                                   value: selectedDept,
                                   hint: const Text("Select Department"),
                                   items: DeptList.map((department) {

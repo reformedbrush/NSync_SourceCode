@@ -173,6 +173,7 @@ class _ClubsScreenState extends State<ClubsScreen>
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
             ),
           ),
+          SizedBox(height: 20),
           Container(
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 249, 249, 249),
@@ -180,6 +181,7 @@ class _ClubsScreenState extends State<ClubsScreen>
               borderRadius: BorderRadius.circular(6),
             ),
             height: 500,
+            width: 550,
             child: Padding(
               padding: EdgeInsets.all(8),
               child: DataTable(
