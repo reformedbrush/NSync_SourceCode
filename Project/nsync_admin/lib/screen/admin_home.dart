@@ -27,7 +27,7 @@ class _AdminHomeState extends State<AdminHome> {
     FacultyScreen(),
     DepartmentScreen(),
     ClubsScreen(),
-    StudentScreen(),
+    ManageStudents(),
     AssignClass1(),
     NewsLetterScreen(),
     ComplaintsScreen(),
