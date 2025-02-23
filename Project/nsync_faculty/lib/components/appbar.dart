@@ -13,14 +13,15 @@ class Appbar1 extends StatelessWidget {
           children: [
             Icon(
               Icons.person,
-              color: Colors.amber,
+              color: Color.fromARGB(255, 109, 88, 248),
             ),
             SizedBox(
               width: 10,
             ),
             Text(
-              "Admin",
-              style: TextStyle(color: Colors.black),
+              "Faculty",
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               width: 40,

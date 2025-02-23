@@ -69,7 +69,7 @@ class _AssignClass1State extends State<AssignClass1>
                     });
                   },
                   label: Text(
-                    _isFormVisible ? "Cancel" : "Assign Student",
+                    _isFormVisible ? "Cancel" : "Assign Class",
                     style: TextStyle(color: Colors.white),
                   ),
                   icon: Icon(
