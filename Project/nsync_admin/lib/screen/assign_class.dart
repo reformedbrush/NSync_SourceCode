@@ -20,6 +20,8 @@ class _AssignClass1State extends State<AssignClass1>
 
   final formKey = GlobalKey<FormState>();
 
+  final TextEditingController _acdyearController = TextEditingController();
+
   //fetch
 
   Future<void> fetchDept() async {
@@ -128,10 +130,60 @@ class _AssignClass1State extends State<AssignClass1>
                                   }),
                             ))
                           ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: TextFormField(
+                              controller: _acdyearController,
+                              decoration: InputDecoration(
+                                  hintText: "Academic Year",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                              Color.fromARGB(255, 2, 55, 98)))),
+                            ))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 22, horizontal: 70),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5))),
+                                onPressed: () {},
+                                child: Text(
+                                  "Insert",
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                            SizedBox(
+                              width: 30,
+                            ),
+                          ],
                         )
                       ],
                     ),
                   ),
+          ),
+          Container(
+            child: Center(
+              child: Text("Assign Table",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+            ),
           )
         ],
       ),
