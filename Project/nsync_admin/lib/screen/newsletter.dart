@@ -46,6 +46,7 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
       _newsAuthorController.clear();
       _newsContentController.clear();
       _newsTitleController.clear();
+      fetchNews();
     } catch (e) {
       print("ERROR INSERTING DATA: $e");
     }
@@ -61,6 +62,26 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
       });
     } catch (e) {
       print("ERROR FETCHING NEWSLETTER DATA: $e");
+    }
+  }
+
+  //edit
+
+  int eid = 0;
+
+  Future<void> editNews() async {
+    try {
+      await supabase.from('tbl_newsletter').update({
+        'newsletter_title': _newsTitleController.text,
+        'newsletter_content': _newsContentController.text,
+        'newsletter_author': _newsAuthorController.text
+      }).eq('id', eid);
+      fetchNews();
+      _newsAuthorController.clear();
+      _newsContentController.clear();
+      _newsTitleController.clear();
+    } catch (e) {
+      print("ERROR EDITING NEWSLETTER: $e");
     }
   }
 
@@ -163,7 +184,11 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
                                           borderRadius:
                                               BorderRadius.circular(5))),
                                   onPressed: () {
-                                    insertNews();
+                                    if (eid == 0) {
+                                      insertNews();
+                                    } else {
+                                      editNews();
+                                    }
                                   },
                                   child: Text(
                                     "Insert",
@@ -211,7 +236,18 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
                           Icons.edit,
                           color: Colors.green,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _newsAuthorController.text =
+                                entry.value['newsletter_author'];
+                            _newsContentController.text =
+                                entry.value['newsletter_content'];
+                            _newsTitleController.text =
+                                entry.value['newsletter_title'];
+                            eid = entry.value['id'];
+                            _isFormVisible = !_isFormVisible;
+                          });
+                        },
                       )),
                       DataCell(IconButton(
                         icon: Icon(
