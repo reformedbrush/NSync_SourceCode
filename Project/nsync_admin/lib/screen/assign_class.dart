@@ -58,18 +58,31 @@ class _AssignClass1State extends State<AssignClass1>
   Future<void> insertClass() async {
     try {
       String YYYY = _acdyearController.text;
-      await supabase.from('tbl_assign').insert({
-        'academic_year': YYYY,
-        'department_id': selectedDept,
-        'faculty_id': selectedFac
-      });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text(
-          "Class Assigned Sucessfully",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-      ));
+      final assign = await supabase
+          .from('tbl_assign')
+          .select()
+          .eq('faculty_id', selectedFac!); // checks if fac already assigned
+      if (assign.length > 0) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Faculty Already Assigned",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ));
+      } else {
+        await supabase
+            .from('tbl_assign')
+            .insert({'academic_year': YYYY, 'faculty_id': selectedFac});
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Class Assigned Sucessfully",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.green,
+        ));
+      }
+
       _acdyearController.clear();
       setState(() {
         selectedDept = null;
