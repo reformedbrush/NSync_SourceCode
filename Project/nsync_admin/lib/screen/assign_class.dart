@@ -53,6 +53,33 @@ class _AssignClass1State extends State<AssignClass1>
     }
   }
 
+  //insert
+
+  Future<void> insertClass() async {
+    try {
+      String YYYY = _acdyearController.text;
+      await supabase.from('tbl_assign').insert({
+        'academic_year': YYYY,
+        'department_id': selectedDept,
+        'faculty_id': selectedFac
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          "Class Assigned Sucessfully",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+      ));
+      _acdyearController.clear();
+      setState(() {
+        selectedDept = null;
+        selectedFac = null;
+      });
+    } catch (e) {
+      print("ERROR INSERTING ASSIGN DATA: $e");
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -155,7 +182,7 @@ class _AssignClass1State extends State<AssignClass1>
                                 child: TextFormField(
                               controller: _acdyearController,
                               decoration: InputDecoration(
-                                  hintText: "Academic Year",
+                                  hintText: "YYYY",
                                   enabledBorder: OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.grey)),
@@ -180,19 +207,21 @@ class _AssignClass1State extends State<AssignClass1>
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(5))),
-                                onPressed: () {},
+                                onPressed: () {
+                                  insertClass();
+                                },
                                 child: Text(
                                   "Insert",
                                   style: TextStyle(color: Colors.white),
                                 )),
-                            SizedBox(
-                              width: 30,
-                            ),
                           ],
                         )
                       ],
                     ),
                   ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           Container(
             child: Center(
