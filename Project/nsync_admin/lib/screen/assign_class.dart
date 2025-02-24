@@ -13,8 +13,10 @@ class _AssignClass1State extends State<AssignClass1>
   bool _isFormVisible = false;
 
   String? selectedDept;
+  String? selectedFac;
 
   List<Map<String, dynamic>> DeptList = [];
+  List<Map<String, dynamic>> FacList = [];
 
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
@@ -34,6 +36,20 @@ class _AssignClass1State extends State<AssignClass1>
       }
     } catch (e) {
       print("ERROR FETCHING DEPARTMENT: $e");
+    }
+  }
+
+  Future<void> fetchFaculty(String id) async {
+    try {
+      final response =
+          await supabase.from('tbl_faculty').select().eq("department_id", id);
+      if (response.isNotEmpty) {
+        setState(() {
+          FacList = response;
+        });
+      }
+    } catch (e) {
+      print("ERROR FETCHING FACULTY: $e");
     }
   }
 
@@ -108,24 +124,23 @@ class _AssignClass1State extends State<AssignClass1>
                                     setState(() {
                                       selectedDept = newValue;
                                     });
+                                    fetchFaculty(newValue!);
                                   }),
                             )),
                             Expanded(
                                 child: Padding(
                               padding: EdgeInsets.all(8),
                               child: DropdownButtonFormField(
-                                  value: selectedDept,
-                                  hint: const Text("Select Department"),
-                                  items: DeptList.map((department) {
+                                  value: selectedFac,
+                                  hint: const Text("Select Faculty"),
+                                  items: FacList.map((faculty) {
                                     return DropdownMenuItem(
-                                        value: department['department_id']
-                                            .toString(),
-                                        child: Text(
-                                            department['department_name']));
+                                        value: faculty['faculty_id'].toString(),
+                                        child: Text(faculty['faculty_name']));
                                   }).toList(),
                                   onChanged: (newValue) {
                                     setState(() {
-                                      selectedDept = newValue;
+                                      selectedFac = newValue;
                                     });
                                   }),
                             ))
