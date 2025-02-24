@@ -85,6 +85,17 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
     }
   }
 
+  // delete
+
+  Future<void> delNews(String did) async {
+    try {
+      await supabase.from('tbl_newsletter').delete().eq('id', did);
+      fetchNews();
+    } catch (e) {
+      print("ERROR DELETING NEWS: $e");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -254,7 +265,9 @@ class _NewsLetterScreenState extends State<NewsLetterScreen>
                           Icons.delete,
                           color: Colors.red,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          delNews(entry.value['id'].toString());
+                        },
                       ))
                     ]);
                   }).toList()),
