@@ -17,6 +17,7 @@ class _AssignClass1State extends State<AssignClass1>
 
   List<Map<String, dynamic>> DeptList = [];
   List<Map<String, dynamic>> FacList = [];
+  List<Map<String, dynamic>> AssignList = [];
 
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
@@ -50,6 +51,19 @@ class _AssignClass1State extends State<AssignClass1>
       }
     } catch (e) {
       print("ERROR FETCHING FACULTY: $e");
+    }
+  }
+
+  //select
+
+  Future<void> fetchAssign() async {
+    try {
+      final response = await supabase.from('tbl_assign').select();
+      setState(() {
+        AssignList = response;
+      });
+    } catch (e) {
+      print('ERROR FETCHING ASSIGN TBL DATA: $e');
     }
   }
 
@@ -98,6 +112,7 @@ class _AssignClass1State extends State<AssignClass1>
     // TODO: implement initState
     super.initState();
     fetchDept();
+    fetchAssign();
   }
 
   @override
@@ -240,6 +255,34 @@ class _AssignClass1State extends State<AssignClass1>
             child: Center(
               child: Text("Assign Table",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+            ),
+          ),
+          Container(
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: DataTable(
+                  columns: [
+                    DataColumn(label: Text("Sl No")),
+                    DataColumn(label: Text("Faculty")),
+                    DataColumn(label: Text("Class")),
+                    DataColumn(label: Text("Edit")),
+                    DataColumn(label: Text("Delete")),
+                  ],
+                  rows: AssignList.asMap().entries.map((entry) {
+                    return DataRow(cells: [
+                      DataCell(Text((entry.key + 1).toString())),
+                      DataCell(Text(entry.value['faculty_id'])),
+                      DataCell(Text(entry.value['academic_year'])),
+                      DataCell(IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.green),
+                        onPressed: () {},
+                      )),
+                      DataCell(IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        onPressed: () {},
+                      ))
+                    ]);
+                  }).toList()),
             ),
           )
         ],
