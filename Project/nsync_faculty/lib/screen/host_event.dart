@@ -66,6 +66,12 @@ class _HosteventState extends State<Hostevent> {
         ),
         backgroundColor: Colors.green,
       ));
+      _nameController.clear();
+      _evDetailController.clear();
+      _evForDateController.clear();
+      _evLastDateController.clear();
+      _evDetailController.clear();
+      _evParticipantsController.clear();
     } catch (e) {
       print("ERROR REQUESTING EVENT: $e");
     }
