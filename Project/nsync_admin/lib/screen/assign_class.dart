@@ -58,7 +58,8 @@ class _AssignClass1State extends State<AssignClass1>
 
   Future<void> fetchAssign() async {
     try {
-      final response = await supabase.from('tbl_assign').select();
+      final response =
+          await supabase.from('tbl_assign').select("*, tbl_faculty(*)");
       setState(() {
         AssignList = response;
       });
@@ -271,7 +272,8 @@ class _AssignClass1State extends State<AssignClass1>
                   rows: AssignList.asMap().entries.map((entry) {
                     return DataRow(cells: [
                       DataCell(Text((entry.key + 1).toString())),
-                      DataCell(Text(entry.value['faculty_id'])),
+                      DataCell(
+                          Text(entry.value['tbl_faculty']['faculty_name'])),
                       DataCell(Text(entry.value['academic_year'])),
                       DataCell(IconButton(
                         icon: const Icon(Icons.edit, color: Colors.green),
