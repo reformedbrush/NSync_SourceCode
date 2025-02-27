@@ -1,5 +1,7 @@
+import 'package:cherry_toast/resources/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nsync_faculty/main.dart';
 import 'package:nsync_faculty/screen/my_department.dart';
 
 class Hostevent extends StatefulWidget {
@@ -22,18 +24,50 @@ class _HosteventState extends State<Hostevent> {
 
   //datepicker
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(
+      BuildContext context, TextEditingController controller) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      firstDate: DateTime.now(), // Prevents past dates
+      lastDate: DateTime.now().add(Duration(days: 365)), // Limits to 1 year
     );
 
     if (pickedDate != null) {
       setState(() {
-        _evForDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+        controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
       });
+    }
+  }
+
+  //insert
+
+  Future<void> hostInsert() async {
+    try {
+      String Name = _nameController.text;
+      String Venue = _evVenueController.text;
+      String For_Date = _evForDateController.text;
+      String Last_Date = _evLastDateController.text;
+      String Details = _evDetailController.text;
+      String Participants = _evParticipantsController.text;
+
+      await supabase.from('tbl_events').insert({
+        'event_name': Name,
+        'event_details': Details,
+        'event_venue': Venue,
+        'event_fordate': For_Date,
+        'event_lastdate': Last_Date,
+        'event_participants': Participants
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          "Event Requested Sucessfully",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+      ));
+    } catch (e) {
+      print("ERROR REQUESTING EVENT: $e");
     }
   }
 
@@ -133,12 +167,13 @@ class _HosteventState extends State<Hostevent> {
                             controller: _evForDateController,
                             readOnly: true,
                             decoration: const InputDecoration(
-                              labelText: "For Date",
+                              labelText: "For_Date",
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey)),
                               suffixIcon: Icon(Icons.calendar_today),
                             ),
-                            onTap: () => _selectDate(context),
+                            onTap: () =>
+                                _selectDate(context, _evForDateController),
                           ),
                         )),
                         Expanded(
@@ -148,12 +183,13 @@ class _HosteventState extends State<Hostevent> {
                             controller: _evLastDateController,
                             readOnly: true,
                             decoration: const InputDecoration(
-                              labelText: "Last date",
+                              labelText: "Last_date",
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey)),
                               suffixIcon: Icon(Icons.calendar_today),
                             ),
-                            onTap: () => _selectDate(context),
+                            onTap: () =>
+                                _selectDate(context, _evLastDateController),
                           ),
                         ))
                       ],
@@ -164,7 +200,7 @@ class _HosteventState extends State<Hostevent> {
                             child: Padding(
                           padding: EdgeInsets.all(8),
                           child: TextFormField(
-                            controller: _evDetailController,
+                            controller: _evVenueController,
                             decoration: InputDecoration(
                               hintText: "Venue",
                               labelText: "Venue",
@@ -224,7 +260,9 @@ class _HosteventState extends State<Hostevent> {
                                     vertical: 22, horizontal: 70),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),
-                            onPressed: () {},
+                            onPressed: () {
+                              hostInsert();
+                            },
                             child: Text(
                               "Send Request",
                               style: TextStyle(
