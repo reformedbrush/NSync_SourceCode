@@ -1,4 +1,5 @@
 import 'package:nsync_faculty/screen/facultyhome.dart';
+import 'package:nsync_faculty/screen/host_event.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Facultyhome(),
+      home: Hostevent(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -15,6 +15,10 @@ class _HosteventState extends State<Hostevent> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _evForDateController = TextEditingController();
   final TextEditingController _evLastDateController = TextEditingController();
+  final TextEditingController _evDetailController = TextEditingController();
+  final TextEditingController _evVenueController = TextEditingController();
+  final TextEditingController _evParticipantsController =
+      TextEditingController();
 
   //datepicker
 
@@ -22,8 +26,8 @@ class _HosteventState extends State<Hostevent> {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 365)),
     );
 
     if (pickedDate != null) {
@@ -45,7 +49,14 @@ class _HosteventState extends State<Hostevent> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  SizedBox(
+                    height: 50,
+                  ),
                   ElevatedButton.icon(
+                    icon: Icon(
+                      Icons.reset_tv,
+                      color: Colors.white,
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -62,6 +73,9 @@ class _HosteventState extends State<Hostevent> {
                   )
                 ],
               ),
+              SizedBox(
+                height: 30,
+              ),
               Container(
                 width: 700,
                 child: Column(
@@ -69,10 +83,13 @@ class _HosteventState extends State<Hostevent> {
                     Row(
                       children: [
                         Center(
-                          child: Text(
-                            "Request Event",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Request Event",
+                              style: TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         )
                       ],
@@ -89,6 +106,7 @@ class _HosteventState extends State<Hostevent> {
                               controller: _nameController,
                               decoration: InputDecoration(
                                   hintText: "Name",
+                                  labelText: "Event Name",
                                   enabledBorder: OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.grey)),
@@ -104,6 +122,10 @@ class _HosteventState extends State<Hostevent> {
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                    Row(
+                      children: [
                         Expanded(
                             child: Padding(
                           padding: EdgeInsets.all(8),
@@ -112,17 +134,119 @@ class _HosteventState extends State<Hostevent> {
                             readOnly: true,
                             decoration: const InputDecoration(
                               labelText: "For Date",
-                              border: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              suffixIcon: Icon(Icons.calendar_today),
+                            ),
+                            onTap: () => _selectDate(context),
+                          ),
+                        )),
+                        Expanded(
+                            child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: TextFormField(
+                            controller: _evLastDateController,
+                            readOnly: true,
+                            decoration: const InputDecoration(
+                              labelText: "Last date",
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
                               suffixIcon: Icon(Icons.calendar_today),
                             ),
                             onTap: () => _selectDate(context),
                           ),
                         ))
                       ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: TextFormField(
+                            controller: _evDetailController,
+                            decoration: InputDecoration(
+                              hintText: "Venue",
+                              labelText: "Venue",
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.blue)),
+                            ),
+                          ),
+                        )),
+                        Expanded(
+                            child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: TextFormField(
+                            controller: _evParticipantsController,
+                            decoration: InputDecoration(
+                              hintText: "Participants",
+                              labelText: "Participants",
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.blue)),
+                            ),
+                          ),
+                        ))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: TextFormField(
+                            controller: _evDetailController,
+                            decoration: InputDecoration(
+                              hintText: "Details",
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.blue)),
+                            ),
+                            maxLines: 5,
+                          ),
+                        ))
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 22, horizontal: 70),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5))),
+                            onPressed: () {},
+                            child: Text(
+                              "Send Request",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ))
+                      ],
                     )
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                child: Center(
+                  child: Text(
+                    "Requested Events",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              )
             ],
           ),
         ),
