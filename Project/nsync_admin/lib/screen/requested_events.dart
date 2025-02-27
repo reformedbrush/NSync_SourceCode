@@ -26,6 +26,30 @@ class _RequestedEventsState extends State<RequestedEvents> {
     }
   }
 
+  //accept event
+
+  Future<void> AcceptEvent(String uid) async {
+    try {
+      await supabase
+          .from('tbl_events')
+          .update({'event_status': 1}).eq('event_id', uid);
+      fetchEvents();
+    } catch (e) {
+      print("ERROR ACCEPTING EVENT: $e");
+    }
+  }
+
+  //reject event
+
+  Future<void> RejectEvent(String did) async {
+    try {
+      await supabase.from('tbl_events').delete().eq('event_id', did);
+      fetchEvents();
+    } catch (e) {
+      print("ERROR REJECTING EVENT: $e");
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -111,13 +135,14 @@ class _RequestedEventsState extends State<RequestedEvents> {
  */
                       DataCell(IconButton(
                         icon: const Icon(Icons.check, color: Colors.green),
-                        onPressed: () {},
+                        onPressed: () {
+                          AcceptEvent(entry.value['event_id'].toString());
+                        },
                       )),
                       DataCell(IconButton(
                         icon: const Icon(Icons.close, color: Colors.red),
                         onPressed: () {
-/*                           DelEvent(entry.value['event_id'].toString());
- */ //delete function
+                          RejectEvent(entry.value['event_id'].toString());
                         },
                       ))
                     ]);
