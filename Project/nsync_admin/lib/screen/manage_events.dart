@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/insert_form.dart';
 import 'package:nsync_admin/main.dart';
 import 'package:intl/intl.dart';
+import 'package:nsync_admin/screen/requested_events.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({super.key});
@@ -141,7 +142,30 @@ class _EventsScreenState extends State<EventsScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Manage Events"),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RequestedEvents()));
+                    },
+                    label: Text(
+                      "Event Requests",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF161616),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 18)),
+                    icon: Icon(
+                      Icons.new_label,
+                      color: Colors.white,
+                    ),
+                  )),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton.icon(

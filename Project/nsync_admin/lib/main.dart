@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/screen/admin_home.dart';
+import 'package:nsync_admin/screen/requested_events.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
@@ -19,6 +20,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: AdminHome());
+        debugShowCheckedModeBanner: false, home: RequestedEvents());
   }
 }
