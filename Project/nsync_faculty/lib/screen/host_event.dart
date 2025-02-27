@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nsync_faculty/screen/my_department.dart';
 
 class Hostevent extends StatefulWidget {
@@ -12,6 +13,26 @@ class _HosteventState extends State<Hostevent> {
   //controllers
 
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _evForDateController = TextEditingController();
+  final TextEditingController _evLastDateController = TextEditingController();
+
+  //datepicker
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        _evForDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +103,21 @@ class _HosteventState extends State<Hostevent> {
                                           BorderSide(color: Colors.blue))),
                             ),
                           ),
-                        )
+                        ),
+                        Expanded(
+                            child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: TextFormField(
+                            controller: _evForDateController,
+                            readOnly: true,
+                            decoration: const InputDecoration(
+                              labelText: "For Date",
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.calendar_today),
+                            ),
+                            onTap: () => _selectDate(context),
+                          ),
+                        ))
                       ],
                     )
                   ],
