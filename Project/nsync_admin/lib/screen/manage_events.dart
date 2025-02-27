@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/components/insert_form.dart';
 import 'package:nsync_admin/main.dart';
+import 'package:intl/intl.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({super.key});
@@ -37,7 +38,8 @@ class _EventsScreenState extends State<EventsScreen>
         'event_details': Details,
         'event_venue': Venue,
         'event_fordate': ForDate,
-        'event_lastdate': LastDate
+        'event_lastdate': LastDate,
+        'event_status': 1 // to auto approve events added by admin
       });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
@@ -46,6 +48,11 @@ class _EventsScreenState extends State<EventsScreen>
         ),
         backgroundColor: Colors.green,
       ));
+      _eventController.clear();
+      _evDetailController.clear();
+      _evVenueController.clear();
+      _evForDateController.clear();
+      _evLastDateController.clear();
     } catch (e) {
       print("ERROR INSERTING DATA: $e");
     }
@@ -55,7 +62,8 @@ class _EventsScreenState extends State<EventsScreen>
 
   Future<void> fetchEvents() async {
     try {
-      final response = await supabase.from('tbl_events').select();
+      final response =
+          await supabase.from('tbl_events').select().eq('event_status', 1);
       setState(() {
         EventList = response;
       });
@@ -97,6 +105,24 @@ class _EventsScreenState extends State<EventsScreen>
       fetchEvents();
     } catch (e) {
       print("ERROR: $e");
+    }
+  }
+
+  //select date
+
+  Future<void> _selectDate(
+      BuildContext context, TextEditingController controller) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(), // Prevents past dates
+      lastDate: DateTime.now().add(Duration(days: 365)), // Limits to 1 year
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+      });
     }
   }
 
@@ -187,17 +213,36 @@ class _EventsScreenState extends State<EventsScreen>
                           children: [
                             Expanded(
                                 child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: TextFieldStyle(
-                                      label: "For Date: YYYY-MM-DD",
-                                      inputController: _evForDateController,
-                                    ))),
+                              padding: EdgeInsets.all(8),
+                              child: TextFormField(
+                                controller: _evForDateController,
+                                readOnly: true,
+                                decoration: const InputDecoration(
+                                  labelText: "For_Date",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  suffixIcon: Icon(Icons.calendar_today),
+                                ),
+                                onTap: () =>
+                                    _selectDate(context, _evForDateController),
+                              ),
+                            )),
                             Expanded(
                                 child: Padding(
                               padding: EdgeInsets.all(8),
-                              child: TextFieldStyle(
-                                label: "Last Date: YYYY-MM-DD",
-                                inputController: _evLastDateController,
+                              child: TextFormField(
+                                controller: _evLastDateController,
+                                readOnly: true,
+                                decoration: const InputDecoration(
+                                  labelText: "Last_date",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  suffixIcon: Icon(Icons.calendar_today),
+                                ),
+                                onTap: () =>
+                                    _selectDate(context, _evLastDateController),
                               ),
                             ))
                           ],
