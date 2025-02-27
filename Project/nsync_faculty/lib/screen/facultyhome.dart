@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nsync_faculty/components/appbar.dart';
 import 'package:nsync_faculty/components/sidebar.dart';
 import 'package:nsync_faculty/screen/landingpg.dart';
-import 'package:nsync_faculty/screen/manage_events.dart';
+import 'package:nsync_faculty/screen/my_department.dart';
 import 'package:nsync_faculty/screen/manage_students.dart';
 
 class Facultyhome extends StatefulWidget {
@@ -23,26 +23,27 @@ class _FacultyhomeState extends State<Facultyhome> {
 
   final List<Widget> _pages = [
     LandingScreen(),
-    ManageEvents(),
+    MyDepartment(),
     ManageStudents()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         body: Row(
-      children: [
-        Expanded(child: SideBar(onItemSelected: onSidebarItemTapped)),
-        Expanded(
-          flex: 5,
-          child: ListView(
-            children: [
-              Appbar1(),
-              _pages[_selectedIndex],
-            ],
-          ),
-        )
-      ],
-    ));
+          children: [
+            Expanded(child: SideBar(onItemSelected: onSidebarItemTapped)),
+            Expanded(
+              flex: 5,
+              child: ListView(
+                children: [
+                  Appbar1(),
+                  _pages[_selectedIndex],
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }

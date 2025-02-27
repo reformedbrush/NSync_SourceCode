@@ -1,6 +1,5 @@
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
-import 'package:nsync_faculty/components/clrsafearea.dart';
 import 'package:nsync_faculty/components/formvalidation.dart';
 import 'package:nsync_faculty/main.dart';
 import 'package:nsync_faculty/screen/facultyhome.dart';
