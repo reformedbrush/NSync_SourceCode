@@ -14,6 +14,9 @@ class _ClubsScreenState extends State<ClubsScreen>
   bool _isFormVisible = false; // To manage form visibility
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
+  String? selectedFac;
+  String? selectedStud;
+
   final TextEditingController _clubController = TextEditingController();
   final TextEditingController _studentController = TextEditingController();
   final TextEditingController _facultyController = TextEditingController();
@@ -183,10 +186,19 @@ class _ClubsScreenState extends State<ClubsScreen>
                             Expanded(
                                 child: Padding(
                               padding: EdgeInsets.all(8),
-                              child: TextFormField(
-                                controller: _facultyController,
-                                decoration: InputDecoration(),
-                              ),
+                              child: DropdownButtonFormField(
+                                  value: selectedFac,
+                                  hint: const Text("Select Faculty"),
+                                  items: FacList.map((faculty) {
+                                    return DropdownMenuItem(
+                                        value: faculty['faculty_id'].toString(),
+                                        child: Text(faculty['faculty_name']));
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedFac = newValue;
+                                    });
+                                  }),
                             ))
                           ],
                         ),
