@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_admin/screen/admin_home.dart';
-import 'package:nsync_admin/screen/requested_events.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {

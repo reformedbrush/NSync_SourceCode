@@ -96,6 +96,7 @@ class _AssignClass1State extends State<AssignClass1>
           ),
           backgroundColor: Colors.green,
         ));
+        fetchAssign();
       }
 
       _acdyearController.clear();

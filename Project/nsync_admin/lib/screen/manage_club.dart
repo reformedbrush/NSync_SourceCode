@@ -15,9 +15,13 @@ class _ClubsScreenState extends State<ClubsScreen>
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
   final TextEditingController _clubController = TextEditingController();
+  final TextEditingController _studentController = TextEditingController();
+  final TextEditingController _facultyController = TextEditingController();
 
 // list to store tbl data for displaying
-  List<Map<String, dynamic>> Clublist = [];
+  List<Map<String, dynamic>> Clublist = []; // display table
+  List<Map<String, dynamic>> FacList = [];
+  List<Map<String, dynamic>> StudList = [];
 
 //insert
   Future<void> insertClub() async {
@@ -42,7 +46,8 @@ class _ClubsScreenState extends State<ClubsScreen>
     }
   }
 
-//display
+//select
+
   Future<void> fetchClub() async {
     try {
       final response = await supabase.from('tbl_club').select();
@@ -54,7 +59,36 @@ class _ClubsScreenState extends State<ClubsScreen>
     }
   }
 
+  Future<void> fetchFaculty() async {
+    try {
+      final response = await supabase.from('tbl_faculty').select();
+      if (response.isNotEmpty) {
+        setState(() {
+          setState(() {
+            FacList = response;
+          });
+        });
+      }
+    } catch (e) {
+      print("ERROR FETCHING FACULTY: $e");
+    }
+  }
+
+  Future<void> fetchStudent() async {
+    try {
+      final response = await supabase.from('tbl_student').select();
+      if (response.isNotEmpty) {
+        setState(() {
+          StudList = response;
+        });
+      }
+    } catch (e) {
+      print('ERROR FETCHING STUDENTS: $e');
+    }
+  }
+
 //delete
+
   Future<void> delCLub(String did) async {
     try {
       await supabase.from('tbl_club').delete().eq("club_id", did);
@@ -142,6 +176,18 @@ class _ClubsScreenState extends State<ClubsScreen>
                                 label: "Club",
                               ),
                             )),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: TextFormField(
+                                controller: _facultyController,
+                                decoration: InputDecoration(),
+                              ),
+                            ))
                           ],
                         ),
                         ElevatedButton(

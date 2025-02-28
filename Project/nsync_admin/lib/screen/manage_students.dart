@@ -46,11 +46,11 @@ class _ManageStudentsState extends State<ManageStudents>
   Future<void> studentInsert(final id) async {
     try {
       String Name = _studentController.text;
-      String Admission_No = _stAdmnoController.text;
+      String admissionNo = _stAdmnoController.text;
       String Email = _stEmailController.text;
       String Password = _stPasswordController.text;
       String Phone = _stContactController.text;
-      String Academic_Year = _stAcdYearController.text;
+      String academicYear = _stAcdYearController.text;
 
       if (selectedDept == null) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -65,12 +65,12 @@ class _ManageStudentsState extends State<ManageStudents>
       await supabase.from('tbl_student').insert({
         'student_id': id,
         'student_name': Name,
-        'student_admno': Admission_No,
+        'student_admno': admissionNo,
         'student_email': Email,
         'student_password': Password,
         'student_contact': Phone,
         'department_id': selectedDept,
-        'academic_year': Academic_Year
+        'academic_year': academicYear
       });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
