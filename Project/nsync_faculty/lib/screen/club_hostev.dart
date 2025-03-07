@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nsync_faculty/main.dart';
 
 class ClubHostev extends StatefulWidget {
   const ClubHostev({super.key});
@@ -35,6 +36,71 @@ class _ClubHostevState extends State<ClubHostev> {
         controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
       });
     }
+  }
+
+  //insert
+
+  Future<void> ClubHostevInsert() async {
+    try {
+      String? clubID = await getClubID();
+      if (clubID == null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Error: Could not fetch club ID"),
+          backgroundColor: Colors.red,
+        ));
+        return;
+      }
+      String Name = _nameController.text;
+      String Venue = _evVenueController.text;
+      String For_Date = _evForDateController.text;
+      String Last_Date = _evLastDateController.text;
+      String Details = _evDetailController.text;
+      String Participants = _evParticipantsController.text;
+
+      await supabase.from('tbl_events').insert({
+        'event_name': Name,
+        'event_details': Details,
+        'event_venue': Venue,
+        'event_fordate': For_Date,
+        'event_lastdate': Last_Date,
+        'event_participants': Participants,
+        'club_id': clubID,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          "Event Requested Successfully",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+      ));
+
+      _nameController.clear();
+      _evDetailController.clear();
+      _evForDateController.clear();
+      _evLastDateController.clear();
+      _evVenueController.clear();
+      _evParticipantsController.clear();
+    } catch (e) {
+      print("ERROR REQUESTING CLUB EVENT: $e");
+    }
+  }
+
+  //select
+
+  Future<String?> getClubID() async {
+    final user = supabase.auth.currentUser;
+    if (user != null) {
+      final response = await supabase
+          .from('tbl_club')
+          .select('club_id')
+          .eq('faculty_id', user.id)
+          .single();
+
+      final clubID = response['club_id'];
+      return clubID.toString();
+    }
+    return null;
   }
 
   @override
@@ -221,7 +287,7 @@ class _ClubHostevState extends State<ClubHostev> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),
                             onPressed: () {
-                              hostInsert();
+                              ClubHostevInsert();
                             },
                             child: Text(
                               "Send Request",
