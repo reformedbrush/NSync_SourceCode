@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_faculty/screen/login.dart';
+import 'package:nsync_faculty/screen/my_profile.dart';
 
 class SideBar extends StatefulWidget {
   final Function(int) onItemSelected;
@@ -10,9 +11,19 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> {
-  final List<String> pages = ["Dashboard", "My Department", "Manage Students"];
+  final List<String> pages = [
+    "Dashboard",
+    "My Department",
+    "My Club",
+    "Manage Students"
+  ];
 
-  final List<IconData> icons = [Icons.home, Icons.event, Icons.person];
+  final List<IconData> icons = [
+    Icons.home,
+    Icons.event,
+    Icons.art_track,
+    Icons.person
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,20 +59,38 @@ class _SideBarState extends State<SideBar> {
                   }),
             ],
           ),
-          ListTile(
-            leading: Icon(Icons.logout_outlined, color: Colors.white),
-            title: Text(
-              "Logout",
-              style: TextStyle(color: Colors.white),
-            ),
-            onTap: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Login1(),
-                  ));
-            },
-          ),
+          Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.person, color: Colors.white),
+                title: Text(
+                  "My Profile",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyProfile(),
+                      ));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout_outlined, color: Colors.white),
+                title: Text(
+                  "Logout",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Login1(),
+                      ));
+                },
+              ),
+            ],
+          )
         ],
       ),
     );

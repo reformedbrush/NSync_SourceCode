@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nsync_faculty/components/appbar.dart';
 import 'package:nsync_faculty/components/sidebar.dart';
 import 'package:nsync_faculty/screen/landingpg.dart';
+import 'package:nsync_faculty/screen/my_club.dart';
 import 'package:nsync_faculty/screen/my_department.dart';
 import 'package:nsync_faculty/screen/manage_students.dart';
+import 'package:nsync_faculty/screen/my_profile.dart';
 
 class Facultyhome extends StatefulWidget {
   const Facultyhome({super.key});
@@ -24,6 +26,7 @@ class _FacultyhomeState extends State<Facultyhome> {
   final List<Widget> _pages = [
     LandingScreen(),
     MyDepartment(),
+    MyClub(),
     ManageStudents()
   ];
 

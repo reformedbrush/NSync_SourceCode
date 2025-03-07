@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:nsync_faculty/main.dart';
-import 'package:nsync_faculty/screen/host_event.dart';
+import 'package:nsync_faculty/screen/club_hostev.dart';
 
-class MyDepartment extends StatefulWidget {
-  const MyDepartment({super.key});
+class MyClub extends StatefulWidget {
+  const MyClub({super.key});
 
   @override
-  State<MyDepartment> createState() => _MyDepartmentState();
+  State<MyClub> createState() => _MyClubState();
 }
 
-class _MyDepartmentState extends State<MyDepartment> {
+class _MyClubState extends State<MyClub> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -23,7 +22,7 @@ class _MyDepartmentState extends State<MyDepartment> {
                 ElevatedButton.icon(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Hostevent()));
+                        MaterialPageRoute(builder: (context) => ClubHostev()));
                   },
                   label: Text(
                     "Host Event",
@@ -43,7 +42,7 @@ class _MyDepartmentState extends State<MyDepartment> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Department Events",
+                  "Club Events",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 )
               ],
