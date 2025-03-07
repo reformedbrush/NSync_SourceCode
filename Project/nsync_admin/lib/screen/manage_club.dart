@@ -18,8 +18,6 @@ class _ClubsScreenState extends State<ClubsScreen>
   String? selectedStud;
 
   final TextEditingController _clubController = TextEditingController();
-  final TextEditingController _studentController = TextEditingController();
-  final TextEditingController _facultyController = TextEditingController();
 
 // list to store tbl data for displaying
   List<Map<String, dynamic>> Clublist = []; // display table
@@ -30,22 +28,28 @@ class _ClubsScreenState extends State<ClubsScreen>
   Future<void> insertClub() async {
     try {
       String club = _clubController.text;
+
+      // Ensure both selections are made
+      if (selectedFac == null || selectedStud == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Please select both Faculty and Student")),
+        );
+        return;
+      }
+
       await supabase.from("tbl_club").insert({
         "club_name": club,
+        "faculty_id": selectedFac, // Use the selected faculty UUID
+        "student_id": selectedStud, // Use the selected student UUID
       });
+
       fetchClub();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        //Data added message
-        content: Text(
-          "Data Added",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
+        content: Text("Data Added", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.green,
       ));
     } catch (e) {
-      print("ERROR ADDDING DATA: $e");
+      print("ERROR ADDING DATA: $e");
     }
   }
 
@@ -53,7 +57,9 @@ class _ClubsScreenState extends State<ClubsScreen>
 
   Future<void> fetchClub() async {
     try {
-      final response = await supabase.from('tbl_club').select();
+      final response = await supabase
+          .from('tbl_club')
+          .select('*, tbl_faculty (faculty_name), tbl_student (student_name)');
       setState(() {
         Clublist = response;
       });
@@ -67,9 +73,7 @@ class _ClubsScreenState extends State<ClubsScreen>
       final response = await supabase.from('tbl_faculty').select();
       if (response.isNotEmpty) {
         setState(() {
-          setState(() {
-            FacList = response;
-          });
+          FacList = response;
         });
       }
     } catch (e) {
@@ -121,6 +125,7 @@ class _ClubsScreenState extends State<ClubsScreen>
     super.initState();
     fetchClub();
     fetchFaculty();
+    fetchStudent();
   }
 
   @override
@@ -188,18 +193,39 @@ class _ClubsScreenState extends State<ClubsScreen>
                                 child: Padding(
                               padding: EdgeInsets.all(8),
                               child: DropdownButtonFormField(
-                                  value: selectedFac,
-                                  hint: const Text("Select Faculty"),
-                                  items: FacList.map((faculty) {
-                                    return DropdownMenuItem(
-                                        value: faculty['faculty_id'].toString(),
-                                        child: Text(faculty['faculty_name']));
-                                  }).toList(),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      selectedFac = newValue;
-                                    });
-                                  }),
+                                value: selectedFac,
+                                hint: const Text("Select Faculty"),
+                                items: FacList.map((faculty) {
+                                  return DropdownMenuItem(
+                                    value: faculty['faculty_id'].toString(),
+                                    child: Text(faculty['faculty_name']),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedFac = newValue;
+                                  });
+                                },
+                              ),
+                            )),
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: DropdownButtonFormField(
+                                value: selectedStud,
+                                hint: const Text("Select Student"),
+                                items: StudList.map((student) {
+                                  return DropdownMenuItem(
+                                    value: student['student_id'].toString(),
+                                    child: Text(student['student_name']),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedStud = newValue;
+                                  });
+                                },
+                              ),
                             ))
                           ],
                         ),
@@ -240,13 +266,15 @@ class _ClubsScreenState extends State<ClubsScreen>
               borderRadius: BorderRadius.circular(6),
             ),
             height: 500,
-            width: 550,
+            width: 850,
             child: Padding(
               padding: EdgeInsets.all(8),
               child: DataTable(
                   columns: [
                     DataColumn(label: Text("Sl.No")),
                     DataColumn(label: Text("Club")),
+                    DataColumn(label: Text("Faulty")),
+                    DataColumn(label: Text("Student")),
                     DataColumn(label: Text("Edit")),
                     DataColumn(label: Text("Delete"))
                   ],
@@ -255,6 +283,10 @@ class _ClubsScreenState extends State<ClubsScreen>
                     return DataRow(cells: [
                       DataCell(Text((entry.key + 1).toString())),
                       DataCell(Text(entry.value['club_name'])),
+                      DataCell(
+                          Text(entry.value['tbl_faculty']['faculty_name'])),
+                      DataCell(
+                          Text(entry.value['tbl_student']['student_name'])),
                       DataCell(IconButton(
                         icon: const Icon(Icons.edit, color: Colors.green),
                         onPressed: () {
