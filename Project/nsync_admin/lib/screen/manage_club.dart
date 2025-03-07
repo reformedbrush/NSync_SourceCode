@@ -120,6 +120,7 @@ class _ClubsScreenState extends State<ClubsScreen>
   void initState() {
     super.initState();
     fetchClub();
+    fetchFaculty();
   }
 
   @override
