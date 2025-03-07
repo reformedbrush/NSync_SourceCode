@@ -44,6 +44,16 @@ class _HosteventState extends State<Hostevent> {
 
   Future<void> hostInsert() async {
     try {
+      String? departmentId = await getDepartmentId(); // Fetch department ID
+
+      if (departmentId == null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Error: Could not fetch department ID"),
+          backgroundColor: Colors.red,
+        ));
+        return;
+      }
+
       String Name = _nameController.text;
       String Venue = _evVenueController.text;
       String For_Date = _evForDateController.text;
@@ -57,24 +67,45 @@ class _HosteventState extends State<Hostevent> {
         'event_venue': Venue,
         'event_fordate': For_Date,
         'event_lastdate': Last_Date,
-        'event_participants': Participants
+        'event_participants': Participants,
+        'department_id': departmentId, // Passing department_id here
       });
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
-          "Event Requested Sucessfully",
+          "Event Requested Successfully",
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.green,
       ));
+
       _nameController.clear();
       _evDetailController.clear();
       _evForDateController.clear();
       _evLastDateController.clear();
-      _evDetailController.clear();
+      _evVenueController.clear();
       _evParticipantsController.clear();
     } catch (e) {
       print("ERROR REQUESTING EVENT: $e");
     }
+  }
+
+  // select
+
+  Future<String?> getDepartmentId() async {
+    final user = supabase.auth.currentUser;
+    if (user != null) {
+      final response = await supabase
+          .from('tbl_faculty')
+          .select('department_id')
+          .eq('faculty_id', user.id)
+          .single();
+
+      final departmentId = response['department_id'];
+
+      return departmentId.toString();
+    }
+    return null;
   }
 
   @override
