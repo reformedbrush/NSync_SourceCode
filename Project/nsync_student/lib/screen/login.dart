@@ -84,25 +84,21 @@ class _Login1State extends State<Login1> {
               SizedBox(
                 height: 16,
               ),
-              Container(
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF161616),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 150, vertical: 18)),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => StudentHome()));
-                    },
-                    child: Text(
-                      "Login",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    )),
-              ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF161616),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 150, vertical: 18)),
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => StudentHome()));
+                  },
+                  child: Text(
+                    "Login",
+                    style: TextStyle(color: Colors.white, fontSize: 25),
+                  )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

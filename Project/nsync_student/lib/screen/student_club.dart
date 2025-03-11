@@ -85,7 +85,16 @@ class _StuClubState extends State<StuClub> {
                       );
                     },
                   ),
-                )
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF161616),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 150, vertical: 18)),
+                    onPressed: () {},
+                    child: Text("Join Clubs"))
               ],
             ),
           ),
