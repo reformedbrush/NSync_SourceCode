@@ -77,6 +77,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       height: 500,
                       child: Column(
                         children: [
+                          SingleChildScrollView(),
                           Padding(
                             padding: const EdgeInsets.only(
                                 top: 5.0, left: 5, right: 5),
