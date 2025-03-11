@@ -25,6 +25,13 @@ class _MyDepartmentState extends State<MyDepartment> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchEvents();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
@@ -57,36 +64,47 @@ class _MyDepartmentState extends State<MyDepartment> {
               "Department Events",
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
+            SizedBox(
+              height: 50,
+            ),
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: eventList.length,
                 itemBuilder: (context, index) {
                   final event = eventList[index];
-                  return (Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        /* Image.asset(event                        ), */
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(event['event_name'],
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                        Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                  return Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: (Container(
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 241, 241, 241),
+                          borderRadius: BorderRadius.circular(10)),
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /* Image.asset(event                        ), */
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(event['event_name'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              child: Text(event['event_venue'],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis)),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
                             child: Text(event['event_details'],
-                                maxLines: 2, overflow: TextOverflow.ellipsis)),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(event['event_venue'],
-                              maxLines: 2, overflow: TextOverflow.ellipsis),
-                        )
-                      ],
-                    ),
-                  ));
+                                maxLines: 2, overflow: TextOverflow.ellipsis),
+                          )
+                        ],
+                      ),
+                    )),
+                  );
                 })
           ],
         ),
