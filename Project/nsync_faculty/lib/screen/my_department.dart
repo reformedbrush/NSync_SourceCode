@@ -10,6 +10,20 @@ class MyDepartment extends StatefulWidget {
 }
 
 class _MyDepartmentState extends State<MyDepartment> {
+  List<Map<String, dynamic>> eventList = [];
+
+  // select
+
+  Future<void> fetchEvents() async {
+    try {
+      final response =
+          await supabase.from('tbl_events').select().eq("event_status", 1);
+      setState(() {
+        eventList = response;
+      });
+    } catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -39,15 +53,41 @@ class _MyDepartmentState extends State<MyDepartment> {
               ],
             ),
             SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Department Events",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                )
-              ],
-            )
+            Text(
+              "Department Events",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: eventList.length,
+                itemBuilder: (context, index) {
+                  final event = eventList[index];
+                  return (Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        /* Image.asset(event                        ), */
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(event['event_name'],
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(event['event_details'],
+                                maxLines: 2, overflow: TextOverflow.ellipsis)),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(event['event_venue'],
+                              maxLines: 2, overflow: TextOverflow.ellipsis),
+                        )
+                      ],
+                    ),
+                  ));
+                })
           ],
         ),
       ),
