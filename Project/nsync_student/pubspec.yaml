@@ -9,7 +9,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+<<<<<<< HEAD
   supabase_flutter: ^2.8.3
+=======
+  firebase_core: ^3.10.1
+  supabase_flutter: ^2.8.3
+  cherry_toast: ^1.11.0
+  google_fonts: ^6.2.1
+>>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
 
 dev_dependencies:
   flutter_test:

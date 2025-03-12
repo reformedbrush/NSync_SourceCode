@@ -13,8 +13,11 @@ class _StuEventsState extends State<StuEvents> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text("NSync", style: TextStyle(fontWeight: FontWeight.bold)),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
+        ],
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -22,7 +25,7 @@ class _StuEventsState extends State<StuEvents> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Find events ",
+            /*  Text("Find events ",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             SizedBox(height: 10),
             TextField(
@@ -33,7 +36,7 @@ class _StuEventsState extends State<StuEvents> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-            ),
+            ), */
             SizedBox(height: 20),
             Text("Latest Events",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -54,11 +57,6 @@ class _StuEventsState extends State<StuEvents> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Colors.blue,
-        child: Icon(Icons.add),
       ),
     );
   }

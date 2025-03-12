@@ -4,6 +4,10 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   app_links
+<<<<<<< HEAD
+=======
+  firebase_core
+>>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
   url_launcher_windows
 )
 

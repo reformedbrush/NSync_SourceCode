@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_student/main.dart';
+<<<<<<< HEAD
 import 'package:nsync_student/screen/join_clubs.dart';
 
 class StudentClub extends StatefulWidget {
@@ -31,10 +32,43 @@ class _StudentClubState extends State<StudentClub> {
     super.initState();
     evFetc();
   }
+=======
+
+class StuClub extends StatefulWidget {
+  const StuClub({super.key});
+>>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
+
+  @override
+  State<StuClub> createState() => _StuClubState();
+}
+
+class _StuClubState extends State<StuClub> {
+  List<Map<String, dynamic>> Clublist = [];
+
+  //select
+
+  Future<void> fecthClub() async {
+    try {
+      final response = await supabase.from('tbl_club').select();
+      setState(() {
+        Clublist = response;
+      });
+    } catch (e) {
+      print("ERROR FETCHING CLUB: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fecthClub();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
@@ -51,11 +85,34 @@ class _StudentClubState extends State<StudentClub> {
                     itemCount: clubList.length,
                     itemBuilder: (context, index) {
                       final club = clubList[index];
+=======
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: Clublist.length,
+                    itemBuilder: (context, index) {
+                      final club = Clublist[index];
+
+>>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
                       return Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: (Container(
                           decoration: BoxDecoration(
+<<<<<<< HEAD
                               color: const Color.fromARGB(255, 242, 242, 242),
+=======
+                              color: const Color.fromARGB(255, 241, 241, 241),
+>>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
                               borderRadius: BorderRadius.circular(10)),
                           padding: EdgeInsets.all(10),
                           child: Column(
@@ -69,6 +126,7 @@ class _StudentClubState extends State<StudentClub> {
                                         fontWeight: FontWeight.bold)),
                               ),
                               /* Padding(
+<<<<<<< HEAD
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 5.0),
                                   child: Text(club['_venue'],
@@ -78,10 +136,23 @@ class _StudentClubState extends State<StudentClub> {
                                 child: Text(club['event_details'],
                                     maxLines: 2, overflow: TextOverflow.ellipsis),
                               ) */
+=======
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Text(club['event_venue'],
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis)),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(club['event_details'],
+                                  maxLines: 2, overflow: TextOverflow.ellipsis),
+                            ) */
+>>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
                             ],
                           ),
                         )),
                       );
+<<<<<<< HEAD
                     }),
                 Row(
                   children: [
@@ -113,5 +184,23 @@ class _StudentClubState extends State<StudentClub> {
         ),
       ),
     );
+=======
+                    },
+                  ),
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF161616),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 150, vertical: 18)),
+                    onPressed: () {},
+                    child: Text("Join Clubs"))
+              ],
+            ),
+          ),
+        ));
+>>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
   }
 }
