@@ -21,9 +21,7 @@ class _MyDepartmentState extends State<MyDepartment> {
       setState(() {
         eventList = response;
       });
-    } catch (e) {
-      print("ERROR FETCHING EVENTS: $e");
-    }
+    } catch (e) {}
   }
 
   @override
