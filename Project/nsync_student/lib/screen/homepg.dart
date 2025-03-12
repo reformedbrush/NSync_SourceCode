@@ -13,7 +13,7 @@ class StudentHome extends StatefulWidget {
 class _StudentHomeState extends State<StudentHome> {
   int myIndex = 0;
 
-  final List<Widget> pages = [StuEvents(), StuClub(), MyProfile()];
+  final List<Widget> pages = [StuEvents(), StudentClub(), MyProfile()];
 
   @override
   Widget build(BuildContext context) {
