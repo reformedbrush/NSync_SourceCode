@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nsync_student/main.dart';
-<<<<<<< HEAD
 import 'package:nsync_student/screen/join_clubs.dart';
 
 class StudentClub extends StatefulWidget {
@@ -13,9 +12,7 @@ class StudentClub extends StatefulWidget {
 class _StudentClubState extends State<StudentClub> {
   List<Map<String, dynamic>> clubList = [];
 
-  //select
-
-  Future<void> evFetc() async {
+  Future<void> fetchClubs() async {
     try {
       final response = await supabase.from('tbl_club').select();
       setState(() {
@@ -28,179 +25,91 @@ class _StudentClubState extends State<StudentClub> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    evFetc();
-  }
-=======
-
-class StuClub extends StatefulWidget {
-  const StuClub({super.key});
->>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
-
-  @override
-  State<StuClub> createState() => _StuClubState();
-}
-
-class _StuClubState extends State<StuClub> {
-  List<Map<String, dynamic>> Clublist = [];
-
-  //select
-
-  Future<void> fecthClub() async {
-    try {
-      final response = await supabase.from('tbl_club').select();
-      setState(() {
-        Clublist = response;
-      });
-    } catch (e) {
-      print("ERROR FETCHING CLUB: $e");
-    }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    fecthClub();
+    fetchClubs();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Center(
-              child: Text("My Clubs"),
-            ),
-            Column(
-              children: [
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: clubList.length,
-                    itemBuilder: (context, index) {
-                      final club = clubList[index];
-=======
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 50),
+              const Center(
+                child: Text(
+                  "My Clubs",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: Clublist.length,
-                    itemBuilder: (context, index) {
-                      final club = Clublist[index];
-
->>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
-                      return Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: (Container(
-                          decoration: BoxDecoration(
-<<<<<<< HEAD
-                              color: const Color.fromARGB(255, 242, 242, 242),
-=======
-                              color: const Color.fromARGB(255, 241, 241, 241),
->>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
-                              borderRadius: BorderRadius.circular(10)),
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              /* Image.asset(event                        ), */
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(club['club_name'],
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                              /* Padding(
-<<<<<<< HEAD
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5.0),
-                                  child: Text(club['_venue'],
-                                      maxLines: 2, overflow: TextOverflow.ellipsis)),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(club['event_details'],
-                                    maxLines: 2, overflow: TextOverflow.ellipsis),
-                              ) */
-=======
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5.0),
-                                child: Text(club['event_venue'],
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis)),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: clubList.length,
+                  itemBuilder: (context, index) {
+                    final club = clubList[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 242, 242, 242),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Text(club['event_details'],
-                                  maxLines: 2, overflow: TextOverflow.ellipsis),
-                            ) */
->>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
-                            ],
-                          ),
-                        )),
-                      );
-<<<<<<< HEAD
-                    }),
-                Row(
-                  children: [
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF161616),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 100, vertical: 18)),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => JoinClubs()));
-                          },
-                          child: Text('Join Clubs',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20))),
-                    )),
-                  ],
-                )
-              ],
-            ),
-          ],
+                              child: Text(
+                                club['club_name'],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF161616),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 100,
+                      vertical: 18,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const JoinClubs()),
+                    );
+                  },
+                  child: const Text(
+                    'Join Clubs',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
-=======
-                    },
-                  ),
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF161616),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 150, vertical: 18)),
-                    onPressed: () {},
-                    child: Text("Join Clubs"))
-              ],
-            ),
-          ),
-        ));
->>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
   }
 }

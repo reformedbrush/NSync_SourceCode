@@ -2,24 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:nsync_student/screen/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/* import 'package:nsync_student/screen/login.dart';
- */
 Future<void> main() async {
-<<<<<<< HEAD
-=======
-  runApp(const MainApp());
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Ensures proper async initialization
+
   await Supabase.initialize(
     url: 'https://gxomwkpwoxmhdtdsxjph.supabase.co',
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4b213a3B3b3htaGR0ZHN4anBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQzNDU5ODAsImV4cCI6MjA0OTkyMTk4MH0.AksgXgzqkpAGnGxsypvcaotmPeFSdytlAalMljjdLdw',
   );
->>>>>>> e5e54fd27d99b8f04e92517dfd4a8efc5fcb43fe
+
   runApp(const MainApp());
-  await Supabase.initialize(
-    url: 'https://gxomwkpwoxmhdtdsxjph.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4b213a3B3b3htaGR0ZHN4anBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQzNDU5ODAsImV4cCI6MjA0OTkyMTk4MH0.AksgXgzqkpAGnGxsypvcaotmPeFSdytlAalMljjdLdw',
-  );
 }
 
 final supabase = Supabase.instance.client;
